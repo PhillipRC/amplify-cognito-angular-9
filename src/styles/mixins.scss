@@ -1,0 +1,133 @@
+// prevent users from selecting elements
+@mixin no-select() {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+// used to prevent users from draggin images
+@mixin no-drag() {
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  -webkit-user-drag: none;
+}
+
+// used to create a content area that can scroll within a feature
+@mixin container-host() {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+@mixin container() {
+  padding: 16px;
+  @media only screen and (max-width: 600px) {
+    // shrink up the padding on a small screen
+    padding: 8px;
+  }
+  // keep the container from streating across the entire screen
+  // example:
+  // <div class="container ngClass.gt-md="constrain">....</div>
+  &.constrain {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    width: 100%;
+  }
+}
+
+// used with the content area of the feature
+@mixin container-scroll() {
+  flex-grow: 1;
+  overflow: auto;
+  overflow-y: scroll;
+  @media only screen and (max-width: 600px) {
+    // don't force scroll on small screen
+    overflow-y: auto;
+  }
+  width: 100%;
+  z-index: 0;
+  background-repeat: no-repeat;
+  .container {
+    @include container();
+  }
+}
+
+// sets the base styling for the application toolbars
+@mixin app-toolbar() {
+  font-size: 20px;
+  position: relative;
+  z-index: 70;
+  mat-toolbar {
+    min-height: 42px;
+    mat-toolbar-row {
+      height: 42px;
+    }
+  }
+}
+
+@mixin common() {
+  h4 {
+    span {
+      background: #ff0;
+    }
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  form {
+    padding: 24px;
+    background-color: #eef;
+    color: #333;
+  }
+  code {
+    display: block;
+    background-color: #333;
+    margin-bottom: 24px;
+    padding: 24px;
+    color: #0e0;
+    a {
+      color: #00ee00;
+    }
+  }
+  pre {
+    background-color: #eef;
+    color: #333;
+    overflow-x: auto;
+    padding: 24px;
+  }
+
+  label {
+    display: block;
+  }
+  h3 {
+    margin-top: 0;
+  }
+  ol {
+    span {
+      font-family: "Courier New", Courier, monospace;
+      background-color: #eef;
+    }
+  }
+  .highlight {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #eef;
+  }
+  .notes {
+    @include notes();
+  }
+}
+
+@mixin notes() {
+  background-color: #fff;
+  border-radius: 4px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 20px;
+}

@@ -1,0 +1,184 @@
+<!-- app tool bar -->
+<div class="app-toolbar">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row class="mat-elevation-z4">
+      <div>
+        <div>
+          <h2 class="feature-brand">
+            Config - Amplify
+          </h2>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+<div class="scroll-container">
+  <div
+    class="container"
+    ngClass.gt-md="constrain"
+    fxLayout="column"
+    fxLayoutGap="16px"
+  >
+    <div class="notes mat-elevation-z2">
+      <p>
+        Follow these steps to configure this application, leveraging the Amplify
+        library, to point to a specific User Pool
+      </p>
+    </div>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>1 - Find Cognito Configuration Information</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p>
+          To use the AuthClass the Amplify library must be configured with
+          values that were set when configuring the Cognito User Pool. These are
+          steps in how to find those values:
+        </p>
+
+        <ol>
+          <li>
+            Open
+            <a
+              href="https://console.aws.amazon.com/cognito/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              AWS Cognito
+            </a>
+          </li>
+          <li>Select <span>`Manage User Pools`</span></li>
+          <li>
+            Select the User Pool
+          </li>
+          <li>
+            Find each the following settings
+          </li>
+        </ol>
+
+        <dl>
+          <dt>region</dt>
+          <dd>
+            <ol>
+              <li>Select <span>`General settings`</span></li>
+              <li>
+                Pool Id
+                <ul>
+                  <li>example: <span>us-east-1</span></li>
+                </ul>
+              </li>
+            </ol>
+          </dd>
+          <dt>userPoolId</dt>
+          <dd>
+            <ol>
+              <li>Select <span>`General settings`</span></li>
+              <li>
+                Pool Id
+                <ul>
+                  <li>example: <span>us-east-1_XXXXXXXxX</span></li>
+                </ul>
+              </li>
+            </ol>
+          </dd>
+          <dt>userPoolWebClientId</dt>
+          <dd>
+            <ol>
+              <li>Select <span>`App Clients`</span></li>
+              <li>
+                App client Id
+                <ul>
+                  <li>Example: <span>11xxxx1xx1x1xxx111x111xxxx</span></li>
+                </ul>
+              </li>
+            </ol>
+          </dd>
+        </dl>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>2 - Set Amplify Configuration</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          Configure Amplify with the Cognito User Pool settings.
+        </p>
+        <p>
+          In a standard application this would probably not be configurable by
+          the end user but for fleibility it has been made available.
+        </p>
+        <code>
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/amplify.html#configure"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Amplify.configure( &#123; region:region, userPoolId,userPoolId
+            userPoolWebClientId:userPoolWebClientId &#125; )
+          </a>
+        </code>
+
+        <form
+          (submit)="
+            configure(
+              $event,
+              regionInputRegistration.value,
+              userPoolIdInputRegistration.value,
+              userPoolWebClientIdInputRegistration.value
+            )
+          "
+        >
+          <p>The inputs are wired to Amplify.configure()</p>
+          <label>
+            region
+            <input
+              #regionInputRegistration
+              type="text"
+              value="{{ configuration.region }}"
+            />
+          </label>
+          <label>
+            userPoolId
+            <input
+              #userPoolIdInputRegistration
+              type="string"
+              value="{{ configuration.userPoolId }}"
+            />
+          </label>
+          <label>
+            userPoolWebClientId
+            <input
+              #userPoolWebClientIdInputRegistration
+              type="text"
+              value="{{ configuration.userPoolWebClientId }}"
+            />
+          </label>
+          <button *ngIf="amplifyInit.configured === false" type="submit">
+            configure
+          </button>
+          <button
+            *ngIf="amplifyInit.configured === true"
+            (click)="clear()"
+            type="button"
+          >
+            clear configuration
+          </button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <button
+      *ngIf="amplifyInit.configured === true"
+      mat-raised-button
+      color="accent"
+      [routerLink]="['/cognito-auth']"
+    >
+      Amplify has been Configured - Lets Authenticate
+    </button>
+  </div>
+</div>

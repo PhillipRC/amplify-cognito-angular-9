@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div fxFlex="grow" fxLayout="row" fxLayoutAlign="space-between center">
+      <!-- app branding -->
+      <div class="brand">
+        <div>
+          <h1 [routerLink]="['/']" class="pointer no-select">
+            <strong>{{ environment.appBrand }}</strong>
+            <span fxHide fxShow.gt-xs="true">
+              - {{ environment.appName }}
+            </span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- bigger than small screen menu -->
+      <div>
+        <!-- dashboard option -->
+        <button
+          [routerLink]="['/']"
+          color="primary"
+          mat-flat-button
+          type="button"
+        >
+          <div>
+            Start
+          </div>
+        </button>
+
+        <!-- config option -->
+        <button
+          [routerLink]="['/amplify-config']"
+          color="primary"
+          mat-flat-button
+          type="button"
+        >
+          <div>
+            Config
+          </div>
+        </button>
+
+        <!-- auth option -->
+        <button
+          [routerLink]="['/cognito-auth']"
+          color="primary"
+          mat-flat-button
+          type="button"
+        >
+          <div>
+            Auth
+          </div>
+        </button>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

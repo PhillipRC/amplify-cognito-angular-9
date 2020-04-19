@@ -1,0 +1,247 @@
+<!-- app tool bar -->
+<div class="app-toolbar">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row class="mat-elevation-z4">
+      <div>
+        <div>
+          <h2 class="feature-brand">
+            Auth - Cognito
+          </h2>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+<div class="scroll-container">
+  <div
+    class="container"
+    ngClass.gt-md="constrain"
+    fxLayout="column"
+    fxLayoutGap="16px"
+  >
+    <div
+      *ngIf="amplifyInit.configured === false"
+      class="notes mat-elevation-z2"
+    >
+      <p>
+        Use the
+        <a [routerLink]="['/amplify-config']" class="highlight">`Config`</a>
+        option to provide the information needed to connect the Web Client to
+        the User Pool.
+      </p>
+    </div>
+
+    <mat-accordion *ngIf="amplifyInit.configured === true">
+      <!-- amplify service -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>
+              Amplify Service - state: <span>{{ state }}</span>
+            </h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p>
+          This <span>`state`</span> value is being set in the display by
+          listening for Auth state changes. The intended use of the
+          <span>`state`</span> is to give the UI information that can be used to
+          display the correct inputs/forms/display to the user.
+        </p>
+        Possible values include:
+        <ul>
+          <li>signIn</li>
+          <li>signUp</li>
+          <li>confirmSignIn</li>
+          <li>confirmSignUp</li>
+          <li>forgotPassword</li>
+          <li>requireNewPassword</li>
+          <li>verifyContact</li>
+          <li>signedIn</li>
+        </ul>
+
+        <code>
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/amplifyservice.html#authstatechange_"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            AmplifyService.authStateChange$.subscribe((authState) =>
+            &#123;state=authState.state&#125;)
+          </a>
+        </code>
+
+        <pre>{{ state }}</pre>
+      </mat-expansion-panel>
+
+      <!-- sign up -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>1 - Sign Up - Self Registration</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <code>
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signup"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Auth.signUp(&#123;username,password,attributes:&#123;email&#125;&#125;);
+          </a>
+        </code>
+        <form
+          (submit)="
+            signUp(
+              $event,
+              userInputRegistration.value,
+              passwordInputRegistration.value,
+              emailInputRegistration.value
+            )
+          "
+        >
+          <p>
+            You can use this form to perform the self registration operation.
+          </p>
+          <p>The inputs are wired to Auth.signUp()</p>
+          <label>
+            username
+            <input #userInputRegistration type="text" value="" name="user" />
+          </label>
+          <label>
+            password
+            <input
+              #passwordInputRegistration
+              type="password"
+              value=""
+              name="password"
+            />
+          </label>
+          <label>
+            attributes.email
+            <input #emailInputRegistration type="text" value="" name="email" />
+          </label>
+          <button type="submit">
+            Sign Up
+          </button>
+        </form>
+      </mat-expansion-panel>
+
+      <!-- confirm sign up -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>2 - Confirm Sign Up - Self Registration</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <code>
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#confirmsignup"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Auth.confirmSignUp(username, code)
+          </a>
+        </code>
+
+        <form
+          (submit)="
+            confirmSignUp(
+              $event,
+              userInputConfirmSignUp.value,
+              codeInputConfirmSignUp.value
+            )
+          "
+        >
+          <p>
+            The inputs are wired to Auth.confirmSignUp()
+          </p>
+          <label>
+            username
+            <input #userInputConfirmSignUp type="text" value="" name="user" />
+          </label>
+          <label>
+            code
+            <input #codeInputConfirmSignUp type="text" value="" name="code" />
+          </label>
+
+          <button type="submit">
+            Confirm Sign Up
+          </button>
+        </form>
+      </mat-expansion-panel>
+
+      <!-- confirm sign in -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>3 - Sign In</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <code>
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Auth.signIn(username,password)
+          </a>
+        </code>
+        <form (submit)="signIn($event, userInput.value, passwordInput.value)">
+          <p>
+            The inputs are wired to the Auth.signIn()
+          </p>
+          <label>
+            username
+            <input #userInput type="text" name="user" />
+          </label>
+
+          <label>
+            password
+            <input #passwordInput type="password" name="password" />
+          </label>
+
+          <button type="submit">
+            Sign In
+          </button>
+        </form>
+      </mat-expansion-panel>
+
+      <!-- auth state object -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>4 - Examine the authstate object</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>The entire authstate object</p>
+        <pre *ngIf="authState">{{ authState | json }}</pre>
+      </mat-expansion-panel>
+
+      <!-- sign out -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>5 - Sign Out</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <code>
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signout"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Auth.signOut()
+          </a>
+        </code>
+        <form>
+          <button type="button" (click)="signOut()">
+            Sign Out
+          </button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

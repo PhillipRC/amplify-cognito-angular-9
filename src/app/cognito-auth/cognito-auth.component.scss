@@ -1,0 +1,25 @@
+@import "../../styles/mixins";
+
+// for the host to fill the space
+:host {
+  @include container-host();
+  flex-grow: 1;
+}
+
+.app-toolbar {
+  @include app-toolbar();
+}
+
+.scroll-container {
+  @include container-scroll();
+  @include common();
+  .notes {
+    @include notes();
+    a.highlight {
+      font-family: "Courier New", Courier, monospace;
+      background-color: #eef;
+      color: #000;
+      text-decoration: none;
+    }
+  }
+}
