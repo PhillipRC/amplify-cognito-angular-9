@@ -17,6 +17,7 @@ import { NavMainComponent } from './nav-main/nav-main.component';
 import { CognitoAuthComponent } from './cognito-auth/cognito-auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AmplifyConfigComponent } from './amplify-config/amplify-config.component';
+import { CognitoUserPoolComponent } from './cognito-user-pool/cognito-user-pool.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AmplifyConfigComponent } from './amplify-config/amplify-config.componen
     DashboardComponent,
     NavMainComponent,
     AmplifyConfigComponent,
+    CognitoUserPoolComponent,
   ],
   imports: [
     AmplifyAngularModule,
@@ -45,4 +47,4 @@ import { AmplifyConfigComponent } from './amplify-config/amplify-config.componen
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

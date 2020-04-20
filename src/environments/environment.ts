@@ -4,7 +4,7 @@
 
 export const environment = {
   appBrand: 'AWS',
-  appName: 'Amplify (local)',
+  appName: 'Amplify & AWS-SDK (local)',
   production: false,
   awsconfig: {
     region: '',

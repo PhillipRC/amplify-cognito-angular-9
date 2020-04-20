@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class AmplifyInitService {
   public configured = false;
-  private configurationObj: any;
+  public configurationObj: any;
   /**
    * Save the configuration to local storage
    */

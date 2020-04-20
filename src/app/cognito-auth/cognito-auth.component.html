@@ -5,7 +5,7 @@
       <div>
         <div>
           <h2 class="feature-brand">
-            Auth - Cognito
+            Amplify - Auth
           </h2>
         </div>
       </div>
@@ -213,11 +213,26 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <h4>4 - Examine the authstate object</h4>
+            <h4>4 - Examine Available Data</h4>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>The entire authstate object</p>
-        <pre *ngIf="authState">{{ authState | json }}</pre>
+        <div *ngIf="authState && authState.user">
+          <code>authState.user.username</code>
+          <pre>{{ authState.user.username | json }}</pre>
+          <code>authState.user.attributes</code>
+          <pre>{{ authState.user.attributes | json }}</pre>
+          <code
+            >authState.signInUserSession.idToken.payload['cognito:groups']</code
+          >
+          <pre>{{
+            authState.user.signInUserSession.idToken.payload["cognito:groups"]
+              | json
+          }}</pre>
+        </div>
+        <div *ngIf="authState">
+          <code>authstate</code>
+          <pre>{{ authState | json }}</pre>
+        </div>
       </mat-expansion-panel>
 
       <!-- sign out -->

@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { AmplifyInitService } from '../amplify-config/amplify-init.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cognito-auth',
   templateUrl: './cognito-auth.component.html',
   styleUrls: ['./cognito-auth.component.scss'],
 })
-export class CognitoAuthComponent {
+export class CognitoAuthComponent implements OnDestroy {
   /**
    * expose the state to the template
    */
@@ -20,6 +21,8 @@ export class CognitoAuthComponent {
    */
   public authState: any;
 
+  private amplifyServiceSubscription: Subscription;
+
   /**
    * Injected the needed services
    */
@@ -28,7 +31,8 @@ export class CognitoAuthComponent {
     public amplifyInit: AmplifyInitService
   ) {
     // setup listener for auth state change
-    this.amplifyService.authStateChange$.subscribe((authState) => {
+    this.amplifyServiceSubscription = this.amplifyService.authStateChange$.subscribe((authState) => {
+      // state appears to be added special by the amplifyService
       this.state = authState.state;
       this.authState = authState;
     });
@@ -49,11 +53,11 @@ export class CognitoAuthComponent {
     console.log(data);
     alert(
       'Failure\ncode: ' +
-        data.code +
-        '\nname: ' +
-        data.name +
-        '\nmessage: ' +
-        data.message
+      data.code +
+      '\nname: ' +
+      data.name +
+      '\nmessage: ' +
+      data.message
     );
   }
 
@@ -115,5 +119,9 @@ export class CognitoAuthComponent {
    */
   public signOut() {
     Auth.signOut();
+  }
+
+  ngOnDestroy() {
+    this.amplifyServiceSubscription.unsubscribe();
   }
 }

@@ -24,6 +24,7 @@
     "@angular/router": "~9.1.1",
     "aws-amplify": "^3.0.8",
     "aws-amplify-angular": "^5.0.8",
+    "aws-sdk": "^2.659.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
