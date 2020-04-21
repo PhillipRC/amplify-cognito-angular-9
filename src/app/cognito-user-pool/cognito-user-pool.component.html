@@ -27,11 +27,13 @@
         Use the
         <a [routerLink]="['/amplify-config']" class="highlight">`Config`</a>
         option to provide the information needed to connect the Web Client to
-        the User Pool.
+        the User Pool and the
+        <a [routerLink]="['/cognito-auth']" class="highlight">`Auth`</a>
+        option to Sign In.
       </p>
     </div>
 
-    <div *ngIf="amplifyInit.configured === true" class="notes mat-elevation-z2">
+    <div class="notes mat-elevation-z2">
       <h3>
         AWS SDK with a Cognito User Pool
       </h3>
@@ -71,7 +73,7 @@
       </ul>
     </div>
 
-    <mat-accordion *ngIf="amplifyInit.configured === true">
+    <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -283,9 +285,11 @@
           <li>The value is labeled <span>`Identity pool ID`</span></li>
         </ol>
         <code>
-          AWS.config.region = ****Region****; AWS.config.credentials = new
-          AWS.CognitoIdentityCredentials( &#123; IdentityPoolId:
-          '****IdentityPoolId****', Logins: &#123;
+          AWS.config.region = ****Region****;
+        </code>
+        <code>
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials( &#123;
+          IdentityPoolId: '****IdentityPoolId****', Logins: &#123;
           'cognito-idp.****Region****.amazonaws.com/****UserPoolId****':
           currentSession.getIdToken().getJwtToken() &#125; &#125; );
         </code>

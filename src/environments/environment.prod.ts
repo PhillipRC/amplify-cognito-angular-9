@@ -1,6 +1,6 @@
 export const environment = {
   appBrand: 'AWS',
-  appName: 'Amplify',
+  appName: 'Amplify & AWS-SDK',
   awsconfig: {
     region: '',
     userPoolId: '',

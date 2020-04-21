@@ -85,6 +85,10 @@
     padding: 24px;
     background-color: #eef;
     color: #333;
+    a {
+      color: #000;
+      font-weight: bold;
+    }
   }
   code {
     display: block;
@@ -130,4 +134,8 @@
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 20px;
+  a {
+    color: #000;
+    font-weight: bold;
+  }
 }

@@ -33,19 +33,19 @@
           target="_blank"
           >AWS Amplify</a
         >
-        Javascript library with a
+        Javascript library with the
         <a
           href="https://aws.amazon.com/cognito/"
           rel="noopener noreferrer"
           target="_blank"
-          >Cognito</a
+          >AWS Cognito</a
         >
-        User Pool within
+        Service within an
         <a href="https://angular.io/" rel="noopener noreferrer" target="_blank"
           >Angular</a
         >
-        9. To get the most out of this you will want to perform the steps
-        detailed below.
+        9 application. To get the most understanding out of this example you
+        will want to perform the steps detailed below.
       </p>
     </div>
 
@@ -87,8 +87,8 @@
         </mat-expansion-panel-header>
         <p>
           This example attempts to keep setup simple by working with what AWS
-          uses sets by default when creating a User Pool. Which includes the
-          ability for users to self register accounts.
+          sets by default when creating a User Pool. Which includes the ability
+          for users to self register accounts.
         </p>
         <ol>
           <li>
@@ -146,7 +146,8 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p>
-          The application needs to know how to connect to the User Pool. Use the
+          The application needs to configure Amplify with your created AWS
+          service end-point. Use the
           <span class="highlight" [routerLink]="['/amplify-config']"
             >`Config`</span
           >
@@ -165,6 +166,22 @@
           <span class="highlight" [routerLink]="['/cognito-auth']">`Auth`</span>
           option to interact with the User Pool leveraging the AuthClass made
           available within the Amplify library.
+        </p>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>4 - Create an Idenity Pool and interact through the AWS-SDK</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          Use the
+          <span class="highlight" [routerLink]="['/cognito-user-pool']"
+            >`Cognito`</span
+          >
+          option to interact with the User Pool as CognitoPowerUser using the
+          API made available within the AWS SDK.
         </p>
       </mat-expansion-panel>
     </mat-accordion>

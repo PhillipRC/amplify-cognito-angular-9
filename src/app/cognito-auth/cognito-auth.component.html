@@ -31,7 +31,7 @@
       </p>
     </div>
 
-    <mat-accordion *ngIf="amplifyInit.configured === true">
+    <mat-accordion>
       <!-- amplify service -->
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -41,6 +41,11 @@
             </h4>
           </mat-panel-title>
         </mat-expansion-panel-header>
+
+        <code>
+          AmplifyService.authStateChange$.subscribe((authState) =>
+          &#123;state=authState.state&#125;)
+        </code>
 
         <p>
           This <span>`state`</span> value is being set in the display by
@@ -59,17 +64,16 @@
           <li>verifyContact</li>
           <li>signedIn</li>
         </ul>
-
-        <code>
+        <p>
+          This display is driven by
           <a
             href="https://aws-amplify.github.io/amplify-js/api/classes/amplifyservice.html#authstatechange_"
             rel="noopener noreferrer"
             target="_blank"
           >
-            AmplifyService.authStateChange$.subscribe((authState) =>
-            &#123;state=authState.state&#125;)
+            AmplifyService.authStateChange$
           </a>
-        </code>
+        </p>
 
         <pre>{{ state }}</pre>
       </mat-expansion-panel>
@@ -83,13 +87,7 @@
         </mat-expansion-panel-header>
 
         <code>
-          <a
-            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signup"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Auth.signUp(&#123;username,password,attributes:&#123;email&#125;&#125;);
-          </a>
+          Auth.signUp(&#123;username,password,attributes:&#123;email&#125;&#125;);
         </code>
         <form
           (submit)="
@@ -104,7 +102,16 @@
           <p>
             You can use this form to perform the self registration operation.
           </p>
-          <p>The inputs are wired to Auth.signUp()</p>
+          <p>
+            The inputs are wired to
+            <a
+              href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signup"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Auth.signUp()
+            </a>
+          </p>
           <label>
             username
             <input #userInputRegistration type="text" value="" name="user" />
@@ -137,13 +144,7 @@
         </mat-expansion-panel-header>
 
         <code>
-          <a
-            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#confirmsignup"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Auth.confirmSignUp(username, code)
-          </a>
+          Auth.confirmSignUp(username, code)
         </code>
 
         <form
@@ -156,7 +157,14 @@
           "
         >
           <p>
-            The inputs are wired to Auth.confirmSignUp()
+            The inputs are wired to
+            <a
+              href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#confirmsignup"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Auth.confirmSignUp()
+            </a>
           </p>
           <label>
             username
@@ -181,17 +189,18 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <code>
-          <a
-            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Auth.signIn(username,password)
-          </a>
+          Auth.signIn(username,password)
         </code>
         <form (submit)="signIn($event, userInput.value, passwordInput.value)">
           <p>
-            The inputs are wired to the Auth.signIn()
+            The inputs are wired to the
+            <a
+              href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Auth.signIn()
+            </a>
           </p>
           <label>
             username
@@ -243,15 +252,19 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <code>
-          <a
-            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signout"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Auth.signOut()
-          </a>
+          Auth.signOut()
         </code>
         <form>
+          <p>
+            Button is wired to
+            <a
+              href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signout"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Auth.signOut()
+            </a>
+          </p>
           <button type="button" (click)="signOut()">
             Sign Out
           </button>
