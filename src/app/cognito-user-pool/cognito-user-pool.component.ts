@@ -1,7 +1,7 @@
 import { Component, } from '@angular/core';
 import * as AWS from 'aws-sdk';
 import Auth from '@aws-amplify/auth';
-import { AmplifyInitService } from '../amplify-config/amplify-init.service';
+import { AmplifyConfigurationService } from '../setup/amplify-configuration.service';
 
 @Component({
   selector: 'app-cognito-user-pool',
@@ -20,15 +20,21 @@ export class CognitoUserPoolComponent {
    */
   public configuration: any;
 
-  constructor(public amplifyInit: AmplifyInitService) {
+  constructor(public amplifyConfigService: AmplifyConfigurationService) {
     // load the configuration if it is set in local storage
-    this.configuration = this.amplifyInit.getConfiguration();
+    this.configuration = this.amplifyConfigService.getConfiguration();
   }
 
-  public setCognitoIdentityCredentials(event: Event, identityPoolId: string, userPoolId: string, region: string) {
+  public setCognitoIdentityCredentials(event: Event, identityPoolId: string) {
     event.preventDefault();
+
+    // update with identityPoolId
+    const config = { ...this.amplifyConfigService.getConfiguration() };
+    config.identityPoolId = identityPoolId;
+    this.amplifyConfigService.saveConfiguration(config);
+
     // set the region
-    AWS.config.region = region;
+    AWS.config.region = config.region;
     // get the current session information
     Auth.currentSession().then(currentSession => {
 
@@ -38,7 +44,7 @@ export class CognitoUserPoolComponent {
       // setup where to get the credentials from
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: identityPoolId,
-        Logins: { ['cognito-idp.us-east-1.amazonaws.com/' + userPoolId]: loginValue }
+        Logins: { ['cognito-idp.us-east-1.amazonaws.com/' + config.userPoolId]: loginValue }
       });
 
       // get the credentials

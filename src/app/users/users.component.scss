@@ -1,0 +1,22 @@
+@import "../../styles/mixins";
+@import "~@angular/material/theming";
+
+// for the host to fill the space
+:host {
+  @include container-host();
+}
+
+.app-toolbar {
+  @include app-toolbar();
+}
+
+.scroll-container {
+  @include container-scroll();
+
+  .table-wrapper {
+    @include mat-elevation(1);
+    .full-width-table {
+      width: 100%;
+    }
+  }
+}

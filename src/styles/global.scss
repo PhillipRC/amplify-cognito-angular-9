@@ -29,3 +29,42 @@
   min-height: 8px;
   min-width: 8px;
 }
+
+// material styled table
+.mat-table {
+  border-spacing: 0;
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    height: 56px;
+    text-align: left;
+    &:first-of-type {
+      padding-left: 24px;
+    }
+    &:last-of-type {
+      padding-right: 24px;
+    }
+  }
+  .mat-header-cell,
+  .mat-cell,
+  .mat-footer-cell {
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    &.no-wrap {
+      white-space: nowrap;
+    }
+  }
+  &.border {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  &.hover {
+    tbody {
+      tr:hover,
+      tr:focus {
+        // TODO use theme variables
+        background: #efefef;
+      }
+    }
+  }
+}

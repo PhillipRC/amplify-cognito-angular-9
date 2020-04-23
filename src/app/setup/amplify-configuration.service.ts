@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
+import * as AWS from 'aws-sdk';
+import Auth from '@aws-amplify/auth';
+import { from, Subscription, Observer } from 'rxjs';
+import { resolve } from 'dns';
 
 /**
- * Service to track if the Amplify has been configured
+ * Service to track the Amplify configuration
  */
 @Injectable({
   providedIn: 'root',
 })
-export class AmplifyInitService {
-  public configured = false;
-  public configurationObj: any;
+export class AmplifyConfigurationService {
+
   /**
-   * Save the configuration to local storage
+   * Flag to indicate if Amplify has been configured
+   */
+  public configured = false;
+
+  /**
+   * interneral storage for the configuration
+   */
+  public configurationObj: any;
+
+  /**
+   * Save the configuration to localStorage
    */
   public saveConfiguration(obj: any) {
     this.configurationObj = obj;
     localStorage.setItem('configuration', JSON.stringify(obj));
   }
+
   /**
-   * Get the configuration from local storage
+   * Get the configuration from localStorage
    */
   public getConfiguration() {
     const config = localStorage.getItem('configuration');
@@ -28,23 +42,19 @@ export class AmplifyInitService {
     }
     return this.configurationObj;
   }
+
   /**
-   * Remove the configuration
+   * Remove the configuration from localStorage
    */
   public clearConfiguration() {
     localStorage.removeItem('configuration');
   }
 
   /**
-   * If the config looks to be valid
+   * Return true if the config looks to be valid - has region set
    */
   public valid() {
-    if (this.configurationObj.region) {
-      console.log('valid');
-    } else {
-      console.log('not valid');
-    }
-
     return this.configurationObj.region;
   }
+
 }

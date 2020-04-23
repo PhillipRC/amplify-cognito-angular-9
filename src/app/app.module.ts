@@ -14,19 +14,21 @@ import {
 } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
 import { NavMainComponent } from './nav-main/nav-main.component';
-import { CognitoAuthComponent } from './cognito-auth/cognito-auth.component';
+import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AmplifyConfigComponent } from './amplify-config/amplify-config.component';
 import { CognitoUserPoolComponent } from './cognito-user-pool/cognito-user-pool.component';
+import { UsersComponent } from './users/users.component';
+import { SetupComponent } from './setup/setup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CognitoAuthComponent,
+    SigninComponent,
     DashboardComponent,
     NavMainComponent,
-    AmplifyConfigComponent,
     CognitoUserPoolComponent,
+    UsersComponent,
+    SetupComponent
   ],
   imports: [
     AmplifyAngularModule,

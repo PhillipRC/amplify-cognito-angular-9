@@ -23,45 +23,94 @@
           type="button"
         >
           <div>
-            Start
+            Welcome
           </div>
         </button>
 
         <!-- config option -->
         <button
-          [routerLink]="['/amplify-config']"
+          [routerLink]="['/setup']"
           color="primary"
           mat-flat-button
           type="button"
         >
           <div>
-            Config
+            Setup
           </div>
         </button>
 
         <!-- auth option -->
+        <!-- only show this if Amplify has been configured and the user is not signed in -->
         <button
-          [routerLink]="['/cognito-auth']"
+          *ngIf="amplifyConfigurationService.configured"
+          [routerLink]="['/signin']"
           color="primary"
           mat-flat-button
           type="button"
         >
           <div>
-            Auth
+            Sign In
           </div>
         </button>
 
-        <!-- sdk option -->
         <button
-          [routerLink]="['/cognito-user-pool']"
+          *ngIf="state === 'signedIn'"
+          [routerLink]="['/users']"
           color="primary"
           mat-flat-button
           type="button"
         >
           <div>
-            Cognito
+            Users
           </div>
         </button>
+
+        <button
+          *ngIf="state === 'signedIn'"
+          [matMenuTriggerFor]="userMenu"
+          color="primary"
+          mat-flat-button
+          type="button"
+        >
+          User
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          <div
+            *ngIf="currentAuthenticatedUserData"
+            class="user-data"
+            fxLayout="column"
+            fxLayoutGap="16px"
+          >
+            <div>
+              username:
+              {{ currentAuthenticatedUserData.username }}
+            </div>
+            <!-- list attributes -->
+            <div
+              *ngFor="
+                let item of currentAuthenticatedUserData.attributes | keyvalue
+              "
+            >
+              {{ item.key }}: {{ item.value }}
+            </div>
+
+            <!-- list roles -->
+            <div>
+              groups:
+              <span
+                *ngFor="
+                  let item of currentAuthenticatedUserData.signInUserSession
+                    .accessToken.payload['cognito:groups'] | keyvalue
+                "
+              >
+                {{ item.value }}
+              </span>
+            </div>
+          </div>
+          <button (click)="signOut()" mat-menu-item type="button">
+            Sign out
+          </button>
+        </mat-menu>
       </div>
     </div>
   </mat-toolbar-row>

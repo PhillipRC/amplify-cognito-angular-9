@@ -1,0 +1,517 @@
+<!-- app tool bar -->
+<div class="app-toolbar">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row class="mat-elevation-z4">
+      <div>
+        <div>
+          <h2 class="feature-brand">
+            Setup
+          </h2>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+<div class="scroll-container">
+  <div
+    class="container"
+    ngClass.gt-md="constrain"
+    fxLayout="column"
+    fxLayoutGap="16px"
+  >
+    <div class="notes mat-elevation-z2">
+      <h3>
+        Setup - Amazon Resources
+      </h3>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>
+              1 - Create an AWS Account
+            </h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          Creating an AWS account will require a form of payment.
+        </p>
+        <ol>
+          <li>
+            Open
+            <a
+              href="https://aws.amazon.com/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              aws.amazon.com
+            </a>
+          </li>
+          <li>Select <span>`Create an AWS Account`</span></li>
+          <li>
+            Follow the steps
+          </li>
+        </ol>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>2 - Create a User Pool in Cognito</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          This example attempts to keep setup simple by working with what AWS
+          sets by default when creating a User Pool. Which includes the ability
+          for users to self register accounts.
+        </p>
+        <ol>
+          <li>
+            Open
+            <a
+              href="https://console.aws.amazon.com/cognito/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              AWS Cognito
+            </a>
+          </li>
+          <li>Select <span>`Manage User Pools`</span></li>
+          <li>Select <span>`Create a user pool`</span></li>
+          <li>
+            Enter a name in <span>`Pool name`</span>
+            <ul>
+              <li>example: My User Pool</li>
+            </ul>
+          </li>
+          <li>Select <span>`Review defaults`</span></li>
+          <li>
+            Create the mechanisim by which the Web Application will identify
+            itself:
+            <ol>
+              <li>Select <span>`Add app client...`</span></li>
+              <li>Select <span>`Add an app client`</span></li>
+              <li>
+                Enter a name in <span>`App client name`</span>
+                <ul>
+                  <li>example: My App</li>
+                </ul>
+              </li>
+              <li>Uncheck <span>`Generate client secret`</span></li>
+              <li>Select <span>`Create app client`</span></li>
+              <li>Select <span>`Return to pool details`</span></li>
+            </ol>
+          </li>
+          <li>Select <span>`Create pool`</span></li>
+          <li>
+            Verification emails will only be sent if a domain is configured:
+            <ol>
+              <li>Select <span>`Domain Name`</span></li>
+              <li>Enter a unique name in <span>`Domain Name`</span></li>
+              <li>Select <span>`Save changes`</span></li>
+            </ol>
+          </li>
+        </ol>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>3 - Find `User Pool ID` & `App client id`</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p>
+          Following steps will ask for this information, these are steps in how
+          to find those values:
+        </p>
+
+        <ol>
+          <li>
+            Open
+            <a
+              href="https://console.aws.amazon.com/cognito/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              AWS Cognito
+            </a>
+          </li>
+          <li>Select <span>`Manage User Pools`</span></li>
+          <li>
+            Select the User Pool
+          </li>
+          <li>
+            Find each the following settings
+          </li>
+        </ol>
+
+        <dl>
+          <dt>region</dt>
+          <dd>
+            <ol>
+              <li>Select <span>`General settings`</span></li>
+              <li>
+                Pool Id
+                <ul>
+                  <li>example: <span>us-east-1</span></li>
+                </ul>
+              </li>
+            </ol>
+          </dd>
+          <dt>userPoolId</dt>
+          <dd>
+            <ol>
+              <li>Select <span>`General settings`</span></li>
+              <li>
+                Pool Id
+                <ul>
+                  <li>example: <span>us-east-1_XXXXXXXxX</span></li>
+                </ul>
+              </li>
+            </ol>
+          </dd>
+          <dt>userPoolWebClientId</dt>
+          <dd>
+            <ol>
+              <li>Select <span>`App Clients`</span></li>
+              <li>
+                App client Id
+                <ul>
+                  <li>Example: <span>11xxxx1xx1x1xxx111x111xxxx</span></li>
+                </ul>
+              </li>
+            </ol>
+          </dd>
+        </dl>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>
+              4 - Create an Identity Pool in Cognito
+            </h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ol>
+          <li>
+            Open
+            <a
+              href="https://console.aws.amazon.com/cognito/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              AWS Cognito
+            </a>
+          </li>
+          <li>Select <span>`Manage Identity Pools`</span></li>
+          <li>
+            If not selected, use the <span>`Select a Region`</span> option to
+            choose your region
+          </li>
+          <li>Select <span>`Create new identity pool`</span></li>
+          <li>
+            Enter a name in <span>`Identity pool name`</span>
+            <ul>
+              <li>example: My Identity Pool</li>
+            </ul>
+          </li>
+          <li>Select <span>`Authentication providers`</span></li>
+          <li>
+            Enter your <span>`User Pool ID`</span>
+            <ul>
+              <li>example: <span>us-east-1_XXXXXXXxX</span></li>
+            </ul>
+          </li>
+          <li>
+            Enter your <span>`App client id`</span>
+            <ul>
+              <li>Example: <span>11xxxx1xx1x1xxx111x111xxxx</span></li>
+            </ul>
+          </li>
+          <li>Select <span>`Create Pool`</span></li>
+          <li>
+            New IAM Roles for Authenticated and Unauthenticated users will be
+            created
+          </li>
+          <li>Select <span>`Allow`</span></li>
+          <li>Select <span>`Edit identity pool`</span></li>
+          <li>Select <span>`Authentication providers`</span></li>
+          <li>
+            Change <span>`Use default role`</span> to
+            <span>`Choose role from token`</span>
+          </li>
+          <li>Select <span>`Save Changes`</span></li>
+        </ol>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>
+              5 - Find `Identity Pool ID`
+            </h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ol>
+          <li>
+            Open
+            <a
+              href="https://console.aws.amazon.com/cognito/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              AWS Cognito
+            </a>
+          </li>
+          <li>Select <span>`Manage Identity Pools`</span></li>
+          <li>Select your Idenity Pool</li>
+          <li>Select <span>`Edit identity pool`</span></li>
+          <li>It is labeled: <span>`Identity pool ID`</span></li>
+        </ol>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>
+              6 - Create a Role in IAM
+            </h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ol>
+          <li>
+            Open
+            <a
+              href="http://console.aws.amazon.com/iam/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              AWS IAM
+            </a>
+          </li>
+          <li>Select <span>`Create role`</span></li>
+          <li>
+            Select <span>`Web identity (Cognito or any OpenID provider)`</span>
+          </li>
+          <li>Select identity provider <span>`Amazon Cognito`</span></li>
+          <li>Select <span>`Authentication providers`</span></li>
+          <li>
+            Enter your <span>`Identity Pool ID`</span>
+            <ul>
+              <li>
+                example:
+                <span>`us-east-1:111xx111-x1x1-1111-xxx1-xxx11xx11xxx`</span>
+              </li>
+            </ul>
+          </li>
+          <li>Select <span>`Next: Permissions`</span></li>
+          <li>
+            Enter <span>`Search`</span>
+            <ul>
+              <li>cognito</li>
+            </ul>
+          </li>
+          <li>
+            Select the checkbox next to <span>`AmazonCognitoPowerUser`</span>
+            <ul>
+              <li>
+                This was selected for simplicity - you should later set the
+                generated policy to only allow what is needed.
+              </li>
+            </ul>
+          </li>
+          <li>Select <span>`Next: Tags`</span></li>
+          <li>Select <span>`Next: Review`</span></li>
+          <li>
+            Enter a <span>`Role name`</span>
+            <ul>
+              <li>
+                example:
+                <span>`Pool name - Identity - Administrator`</span>
+              </li>
+            </ul>
+          </li>
+          <li>Select <span>`Create role`</span></li>
+        </ol>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>
+              7 - Setup a Group in Cognito
+            </h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ol>
+          <li>
+            Open
+            <a
+              href="https://console.aws.amazon.com/cognito/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              AWS Cognito
+            </a>
+          </li>
+          <li>Select <span>`Manage User Pools`</span></li>
+          <li>Select your User Pool</li>
+          <li>Select <span>`Users and groups`</span></li>
+          <li>Select <span>`Groups`</span></li>
+          <li>Select <span>`Create group`</span></li>
+          <li>
+            Enter <span>`Name`</span>
+            <ul>
+              <li>example:<span>`Administrator`</span></li>
+            </ul>
+          </li>
+          <li>
+            Select the role from <span>`IAM role`</span>
+            <ul>
+              <li>
+                example:
+                <span>`Pool name - Identity - Administrator`</span>
+              </li>
+            </ul>
+          </li>
+          <li>Select <span>`Create group`</span></li>
+          <li>Select <span>`Add users`</span></li>
+          <li>
+            Select the <span>`+`</span> next to a user
+            <ul>
+              <li>
+                The new credentials for this user will not take affect until
+                after a Sign In cycle
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="notes mat-elevation-z2">
+      <h3>
+        Setup - Amplify Javascript
+      </h3>
+    </div>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4>8 - Set Amplify Configuration</h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>
+        Configure Amplify with the Cognito settings.
+      </p>
+      <p>
+        In a standard application this would probably not be configurable by the
+        end user.
+      </p>
+      <code>
+        Amplify.configure( &#123; region, userPoolId, userPoolWebClientId,
+        identityPoolId &#125; )
+      </code>
+
+      <form
+        (submit)="
+          configure(
+            $event,
+            regionInputRegistration.value,
+            userPoolIdInputRegistration.value,
+            userPoolWebClientIdInputRegistration.value,
+            identityPoolIdInputRegistration.value
+          )
+        "
+      >
+        <p>
+          Finding the values:
+        </p>
+        <ul>
+          <li>
+            userPoolId
+            <ul>
+              <li>Step 3 - Find `User Pool ID` & `App client id`</li>
+            </ul>
+          </li>
+          <li>
+            userPoolWebClientId (aka App client id)
+            <ul>
+              <li>Step 3 - Find `User Pool ID` & `App client id`</li>
+            </ul>
+          </li>
+          <li>
+            identityPoolId
+            <ul>
+              <li>Step 5 - Find `Identity Pool ID`</li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          If you see previously entered values they are being loaded from
+          localStorage.
+        </p>
+        <p>
+          The inputs are wired to
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/amplify.html#configure"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Amplify.configure()
+          </a>
+        </p>
+        <label>
+          region
+          <input
+            #regionInputRegistration
+            type="text"
+            value="{{ configuration.region }}"
+          />
+        </label>
+        <label>
+          userPoolId
+          <input
+            #userPoolIdInputRegistration
+            type="string"
+            value="{{ configuration.userPoolId }}"
+          />
+        </label>
+        <label>
+          userPoolWebClientId
+          <input
+            #userPoolWebClientIdInputRegistration
+            type="text"
+            value="{{ configuration.userPoolWebClientId }}"
+          />
+        </label>
+        <label>
+          identityPoolId
+          <input
+            #identityPoolIdInputRegistration
+            type="text"
+            value="{{ configuration.identityPoolId }}"
+          />
+        </label>
+        <button *ngIf="amplifyConfigService.configured === false" type="submit">
+          configure
+        </button>
+        <button
+          *ngIf="amplifyConfigService.configured === true"
+          (click)="clear()"
+          type="button"
+        >
+          Clear Configuration
+        </button>
+      </form>
+    </mat-expansion-panel>
+
+    <button mat-raised-button color="accent" [routerLink]="['/amplify-config']">
+      After Step 8 - Contine on to the `Sign In` option
+    </button>
+  </div>
+</div>

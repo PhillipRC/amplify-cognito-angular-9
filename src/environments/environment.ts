@@ -3,13 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  appBrand: 'AWS',
-  appName: 'Amplify & AWS-SDK (local)',
+  appBrand: 'CAA',
+  appName: 'Cognito Amplify Angular',
   production: false,
   awsconfig: {
     region: '',
     userPoolId: '',
     userPoolWebClientId: '',
+    identityPoolId: ''
   },
 };
 

@@ -5,7 +5,7 @@
       <div>
         <div>
           <h2 class="feature-brand">
-            Start
+            Welcome
           </h2>
         </div>
       </div>
@@ -22,172 +22,122 @@
   >
     <div class="notes mat-elevation-z2">
       <h3>
-        AWS Amplify with Cognito User Pool - Angular 9
+        Cognito / Amplify / Angular 9
       </h3>
       <p>
         This application has been created to exercise, demonstraight, and test
-        using the
-        <a
-          href="https://aws.amazon.com/amplify/"
-          rel="noopener noreferrer"
-          target="_blank"
-          >AWS Amplify</a
-        >
-        Javascript library with the
-        <a
-          href="https://aws.amazon.com/cognito/"
-          rel="noopener noreferrer"
-          target="_blank"
-          >AWS Cognito</a
-        >
-        Service within an
-        <a href="https://angular.io/" rel="noopener noreferrer" target="_blank"
-          >Angular</a
-        >
-        9 application. To get the most understanding out of this example you
-        will want to perform the steps detailed below.
+        using the AWS Amplify, AWS SDK Javascript library with the AWS Cognit
+        Service within an Angular 9 application. This application is not
+        leveraging the Amplify CLI, this is more of an experiment in
+        understanding what the UI developer needs to know to accessing Cognito
+        and other AWS resources.
       </p>
+      <p>
+        Local Storage, client side browser cookies, is being used to save the
+        data needed by Amplify to access AWS Cognito. This is done to prevent
+        the loss of the settings on browser refresh. This application is running
+        locally in your browser, the information you input is being used by the
+        Amplify library and as such any data transmitted is controlled by that
+        library.
+      </p>
+
+      Amazon Resources:
+      <ul>
+        <li>
+          <a
+            href="https://aws.amazon.com/cognito/"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Cognito</a
+          >
+          <ul>
+            <li>
+              User Pool - Provides username/password authentication
+            </li>
+            <li>
+              Identity Pool - Provides a method to map a Group in a User Pool to
+              an IAM Role
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            href="https://aws.amazon.com/iam/"
+            rel="noopener noreferrer"
+            target="_blank"
+            >IAM</a
+          >
+          <ul>
+            <li>
+              Role - Defines permissions to a resource
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      Amazon Javascript:
+      <ul>
+        <li>
+          <a
+            href="https://aws.amazon.com/amplify/"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Amplify</a
+          >
+          <ul>
+            <li>
+              Provides Objects/Methods to call a set of Amazon Resources
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            href="https://docs.aws.amazon.com/sdk-for-javascript/"
+            rel="noopener noreferrer"
+            target="_blank"
+            >SDK</a
+          >
+          <ul>
+            <li>
+              Provides Objects/Methods to call a larger set of Amazon Resources
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      Google Javascript:
+      <ul>
+        <li>
+          <a
+            href="https://angular.io/"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Angular</a
+          >
+          <ul>
+            <li>
+              Provides a frameowork to build applications
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            href="https://material.angular.io/"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Material</a
+          >
+          <ul>
+            <li>
+              Provides a set of components to build applications
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
 
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h4>
-              1 - Create an AWS Account
-            </h4>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>
-          Creating an AWS account will require a form of payment.
-        </p>
-        <ol>
-          <li>
-            Open
-            <a
-              href="https://aws.amazon.com/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              aws.amazon.com
-            </a>
-          </li>
-          <li>Select <span>`Create an AWS Account`</span></li>
-          <li>
-            Follow the steps
-          </li>
-        </ol>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h4>2 - Create a Cognito User Pool</h4>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>
-          This example attempts to keep setup simple by working with what AWS
-          sets by default when creating a User Pool. Which includes the ability
-          for users to self register accounts.
-        </p>
-        <ol>
-          <li>
-            Open
-            <a
-              href="https://console.aws.amazon.com/cognito/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              AWS Cognito
-            </a>
-          </li>
-          <li>Select <span>`Manage User Pools`</span></li>
-          <li>Select <span>`Create a user pool`</span></li>
-          <li>
-            Enter a name in <span>`Pool name`</span>
-            <ul>
-              <li>example: My User Pool</li>
-            </ul>
-          </li>
-          <li>Select <span>`Review defaults`</span></li>
-          <li>
-            Create the mechanisim by which the Web Application will identify
-            itself:
-            <ol>
-              <li>Select <span>`Add app client...`</span></li>
-              <li>Select <span>`Add an app client`</span></li>
-              <li>
-                Enter a name in <span>`App client name`</span>
-                <ul>
-                  <li>example: My App</li>
-                </ul>
-              </li>
-              <li>Uncheck <span>`Generate client secret`</span></li>
-              <li>Select <span>`Create app client`</span></li>
-              <li>Select <span>`Return to pool details`</span></li>
-            </ol>
-          </li>
-          <li>Select <span>`Create pool`</span></li>
-          <li>
-            Verification emails will only be sent if a domain is configured:
-            <ol>
-              <li>Select <span>`Domain Name`</span></li>
-              <li>Enter a unique name in <span>`Domain Name`</span></li>
-              <li>Select <span>`Save changes`</span></li>
-            </ol>
-          </li>
-        </ol>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h4>3 - Configure Amplify</h4>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>
-          The application needs to configure Amplify with your created AWS
-          service end-point. Use the
-          <span class="highlight" [routerLink]="['/amplify-config']"
-            >`Config`</span
-          >
-          option to perform this action.
-        </p>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h4>4 - Exercise Communicating with the User Pool</h4>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>
-          Use the
-          <span class="highlight" [routerLink]="['/cognito-auth']">`Auth`</span>
-          option to interact with the User Pool leveraging the AuthClass made
-          available within the Amplify library.
-        </p>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h4>4 - Create an Idenity Pool and interact through the AWS-SDK</h4>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>
-          Use the
-          <span class="highlight" [routerLink]="['/cognito-user-pool']"
-            >`Cognito`</span
-          >
-          option to interact with the User Pool as CognitoPowerUser using the
-          API made available within the AWS SDK.
-        </p>
-      </mat-expansion-panel>
-    </mat-accordion>
-
-    <button mat-raised-button color="accent" [routerLink]="['/amplify-config']">
-      Once the User Pool has been created - Contine on to `Config`
+    <button mat-raised-button color="accent" [routerLink]="['/setup']">
+      Continue with the `Setup` option
     </button>
   </div>
 </div>

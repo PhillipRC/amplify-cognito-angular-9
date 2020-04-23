@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { environment } from '../../environments/environment';
 import Amplify from 'aws-amplify';
-import { AmplifyInitService } from './amplify-init.service';
+import { AmplifyConfigurationService } from '../setup/amplify-configuration.service';
 
 @Component({
-  selector: 'app-amplify-config',
-  templateUrl: './amplify-config.component.html',
-  styleUrls: ['./amplify-config.component.scss'],
+  selector: 'app-setup',
+  templateUrl: './setup.component.html',
+  styleUrls: ['./setup.component.scss']
 })
-export class AmplifyConfigComponent {
+export class SetupComponent {
   /**
    * expose environment to the template
    */
@@ -19,36 +19,39 @@ export class AmplifyConfigComponent {
    */
   public configuration: any;
 
-  constructor(public amplifyInit: AmplifyInitService) {
+  constructor(public amplifyConfigService: AmplifyConfigurationService) {
     // load the configuration if it is set in local storage
-    this.configuration = this.amplifyInit.getConfiguration();
+    this.configuration = this.amplifyConfigService.getConfiguration();
   }
 
   public configure(
     event: Event,
     region: string,
     userPoolId: string,
-    userPoolWebClientId: string
+    userPoolWebClientId: string,
+    identityPoolId: string
   ) {
     event.preventDefault();
     const configurationObject = {
       region,
       userPoolId,
       userPoolWebClientId,
+      identityPoolId
     };
     // set Amplify configuration
     Amplify.configure(configurationObject);
 
     // save the configuration to reload if the browser is refreshed
-    this.amplifyInit.configured = true;
-    this.amplifyInit.saveConfiguration(configurationObject);
+    this.amplifyConfigService.configured = true;
+    this.amplifyConfigService.saveConfiguration(configurationObject);
   }
 
   public clear() {
     // clear the local storage
-    this.amplifyInit.clearConfiguration();
-    this.amplifyInit.configured = false;
+    this.amplifyConfigService.clearConfiguration();
+    this.amplifyConfigService.configured = false;
     // reload the application
     location.reload();
   }
 }
+

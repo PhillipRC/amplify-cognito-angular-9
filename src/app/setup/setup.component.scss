@@ -13,7 +13,4 @@
 .scroll-container {
   @include container-scroll();
   @include common();
-  .notes {
-    @include notes();
-  }
 }

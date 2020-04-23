@@ -20,7 +20,7 @@
     fxLayoutGap="16px"
   >
     <div
-      *ngIf="amplifyInit.configured === false"
+      *ngIf="amplifyConfigService.configured === false"
       class="notes mat-elevation-z2"
     >
       <p>
@@ -28,7 +28,7 @@
         <a [routerLink]="['/amplify-config']" class="highlight">`Config`</a>
         option to provide the information needed to connect the Web Client to
         the User Pool and the
-        <a [routerLink]="['/cognito-auth']" class="highlight">`Auth`</a>
+        <a [routerLink]="['/signin']" class="highlight">`Auth`</a>
         option to Sign In.
       </p>
     </div>
@@ -94,6 +94,10 @@
             </a>
           </li>
           <li>Select <span>`Manage Identity Pools`</span></li>
+          <li>
+            If not selected, use the <span>`Select a Region`</span> option to
+            choose your region
+          </li>
           <li>Select <span>`Create new identity pool`</span></li>
           <li>
             Enter a name in <span>`Identity pool name`</span>
@@ -295,12 +299,7 @@
         </code>
         <form
           (submit)="
-            setCognitoIdentityCredentials(
-              $event,
-              IdentityPoolIdInput.value,
-              UserPoolIdInput.value,
-              RegionInput.value
-            )
+            setCognitoIdentityCredentials($event, IdentityPoolIdInput.value)
           "
         >
           <p>
@@ -315,7 +314,11 @@
           </p>
           <label>
             IdentityPoolId
-            <input #IdentityPoolIdInput type="text" value="" />
+            <input
+              #IdentityPoolIdInput
+              type="text"
+              value="{{ configuration.identityPoolId }}"
+            />
           </label>
           <label>
             UserPoolId
@@ -382,7 +385,7 @@
         <pre *ngIf="userlistData">{{ userlistData | json }}</pre>
       </mat-expansion-panel>
 
-      <!-- sign up -->
+      
     </mat-accordion>
   </div>
 </div>

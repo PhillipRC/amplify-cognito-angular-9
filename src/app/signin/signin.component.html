@@ -5,7 +5,7 @@
       <div>
         <div>
           <h2 class="feature-brand">
-            Amplify - Auth
+            Sign In
           </h2>
         </div>
       </div>
@@ -19,15 +19,33 @@
     fxLayout="column"
     fxLayoutGap="16px"
   >
+    <div class="notes mat-elevation-z2">
+      <h3>
+        Sign In
+      </h3>
+      <p>
+        This screen contains forms to allow you to exercise the various
+        <a
+          href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          AuthClass
+        </a>
+        methods used during the Sign In process. Normally you would display each
+        form as appropriate but for the purpose of experimentation they are all
+        made available.
+      </p>
+    </div>
     <div
-      *ngIf="amplifyInit.configured === false"
+      *ngIf="amplifyConfigService.configured === false"
       class="notes mat-elevation-z2"
     >
       <p>
         Use the
         <a [routerLink]="['/amplify-config']" class="highlight">`Config`</a>
-        option to provide the information needed to connect the Web Client to
-        the User Pool.
+        option to provide the information needed to connect Amplify to AWS
+        Cognito.
       </p>
     </div>
 
@@ -37,23 +55,47 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             <h4>
-              Amplify Service - state: <span>{{ state }}</span>
+              Amplify Service - state: <span>{{ state | json }}</span>
             </h4>
           </mat-panel-title>
         </mat-expansion-panel-header>
+        <p>
+          The
+          <a
+            href="https://github.com/aws-amplify/amplify-js/blob/master/packages/aws-amplify-angular/src/providers/amplify.service.ts"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            AmplifyService
+          </a>
+          service holds references to other Amplify libraries such as the
+
+          <a
+            href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            AuthClass
+          </a>
+          , which can be accessed as such:
+        </p>
 
         <code>
-          AmplifyService.authStateChange$.subscribe((authState) =>
-          &#123;state=authState.state&#125;)
+          amplifyService.auth().signIn(username,password);
         </code>
 
         <p>
-          This <span>`state`</span> value is being set in the display by
-          listening for Auth state changes. The intended use of the
-          <span>`state`</span> is to give the UI information that can be used to
-          display the correct inputs/forms/display to the user.
+          The service supplies an obervable that is decorated with a state. The
+          intended use of the state is to give the UI information that can be
+          used to display the correct screens during the Sign In process.
         </p>
-        Possible values include:
+
+        <code>
+          amplifyService.authStateChange$.subscribe((authState) =>
+          &#123;state=authState.state&#125;)
+        </code>
+
+        Possible results include:
         <ul>
           <li>signIn</li>
           <li>signUp</li>
@@ -73,9 +115,22 @@
           >
             AmplifyService.authStateChange$
           </a>
+
+          Because it is implmented with a
+
+          <a
+            href="https://www.learnrxjs.io/learn-rxjs/subjects/subject"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Subject
+          </a>
+
+          no value will be displayed on subscription, a call will need to be
+          made to observe a value.
         </p>
 
-        <pre>{{ state }}</pre>
+        <pre>{{ state | json }}</pre>
       </mat-expansion-panel>
 
       <!-- sign up -->
@@ -218,13 +273,143 @@
         </form>
       </mat-expansion-panel>
 
-      <!-- auth state object -->
+      <!-- auth data returns -->
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <h4>4 - Examine Available Data</h4>
+            <h4>4 - Examine Auth Data Returns</h4>
           </mat-panel-title>
         </mat-expansion-panel-header>
+
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>
+                  Auth.currentAuthenticatedUser()
+                </h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <a
+                href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#currentauthenticateduser"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Auth.currentAuthenticatedUser()
+              </a>
+            </p>
+            <pre>{{ currentAuthenticatedUserData | json }}</pre>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>
+                  Auth.currentCredentials()
+                </h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              If credentails are used they can be provided by various providers.
+              Steps walking through this are presented in the
+              <span class="highlight" [routerLink]="['/cognito-user-pool']"
+                >`Cognito`</span
+              >
+              option.
+              <br />
+              <a
+                href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#currentcredentials"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Auth.currentCredentials()
+              </a>
+            </p>
+            <pre>{{ currentCredentialsData | json }}</pre>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>
+                  Auth.currentSessionData()
+                </h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <a
+                href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#currentsession"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Auth.currentSessionData()
+              </a>
+            </p>
+            <pre>{{ currentSessionData | json }}</pre>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>
+                  Auth.currentUserCredentials()
+                </h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <a
+                href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#currentusercredentials"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Auth.currentUserCredentials()
+              </a>
+            </p>
+            <pre>{{ currentUserCredentialsData | json }}</pre>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>
+                  Auth.currentUserInfo()
+                </h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <a
+                href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#currentuserinfo"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Auth.currentUserInfo()
+              </a>
+            </p>
+            <pre>{{ currentUserInfoData | json }}</pre>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>
+                  Auth.currentUserPoolUser()
+                </h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <a
+                href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#currentuserpooluser"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Auth.currentUserPoolUser()
+              </a>
+            </p>
+            <pre>{{ currentUserPoolUserData | json }}</pre>
+          </mat-expansion-panel>
+        </mat-accordion>
+
         <div *ngIf="authState && authState.user">
           <code>authState.user.username</code>
           <pre>{{ authState.user.username | json }}</pre>

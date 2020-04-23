@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import Amplify from 'aws-amplify';
-import { AmplifyInitService } from './amplify-config/amplify-init.service';
+import { AmplifyConfigurationService } from './setup/amplify-configuration.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,12 @@ import { AmplifyInitService } from './amplify-config/amplify-init.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private amplifyInit: AmplifyInitService) {
+  constructor(private amplifyConfigService: AmplifyConfigurationService) {
     // a standard application would set the configuration on startup
-    const configuration = amplifyInit.getConfiguration();
-    if (amplifyInit.valid()) {
+    const configuration = amplifyConfigService.getConfiguration();
+    if (amplifyConfigService.valid()) {
       Amplify.configure(configuration);
-      amplifyInit.configured = true;
+      amplifyConfigService.configured = true;
     }
   }
 }

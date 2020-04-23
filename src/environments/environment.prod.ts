@@ -1,10 +1,11 @@
 export const environment = {
-  appBrand: 'AWS',
-  appName: 'Amplify & AWS-SDK',
+  appBrand: 'CAA',
+  appName: 'Cognito Amplify Angular',
   awsconfig: {
     region: '',
     userPoolId: '',
     userPoolWebClientId: '',
+    identityPoolId: ''
   },
   production: true,
 };
