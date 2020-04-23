@@ -4,6 +4,7 @@ import { AmplifyService } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
 import { from, Subscription } from 'rxjs';
 import { AmplifyConfigurationService } from '../setup/amplify-configuration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-main',
@@ -39,7 +40,7 @@ export class NavMainComponent implements OnInit, OnDestroy {
   /**
    * On construction injects the needed services
    */
-  constructor(private amplifyService: AmplifyService, public amplifyConfigurationService: AmplifyConfigurationService) { }
+  constructor(private amplifyService: AmplifyService, public amplifyConfigurationService: AmplifyConfigurationService, private router: Router) { }
 
   /**
    * Handles when the component is first created
@@ -66,6 +67,8 @@ export class NavMainComponent implements OnInit, OnDestroy {
    */
   public signOut() {
     this.amplifyService.auth().signOut();
+    // load signin screen
+    this.router.navigate(['signin']);
   }
 
   /**
