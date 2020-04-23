@@ -40,7 +40,11 @@ export class NavMainComponent implements OnInit, OnDestroy {
   /**
    * On construction injects the needed services
    */
-  constructor(private amplifyService: AmplifyService, public amplifyConfigurationService: AmplifyConfigurationService, private router: Router) { }
+  constructor(
+    private amplifyService: AmplifyService,
+    public amplifyConfigurationService: AmplifyConfigurationService,
+    private router: Router
+  ) { }
 
   /**
    * Handles when the component is first created

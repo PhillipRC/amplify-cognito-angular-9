@@ -16,7 +16,6 @@ import Auth from '@aws-amplify/auth';
 import { NavMainComponent } from './nav-main/nav-main.component';
 import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CognitoUserPoolComponent } from './cognito-user-pool/cognito-user-pool.component';
 import { UsersComponent } from './users/users.component';
 import { SetupComponent } from './setup/setup.component';
 
@@ -26,7 +25,6 @@ import { SetupComponent } from './setup/setup.component';
     SigninComponent,
     DashboardComponent,
     NavMainComponent,
-    CognitoUserPoolComponent,
     UsersComponent,
     SetupComponent
   ],
