@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as AWS from 'aws-sdk';
-import Auth from '@aws-amplify/auth';
-import { from, Subscription, Observer } from 'rxjs';
-import { resolve } from 'dns';
 
 /**
  * Service to track the Amplify configuration

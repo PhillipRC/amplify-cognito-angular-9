@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as AWS from 'aws-sdk';
+import { CognitoIdentityCredentials, config as awsConfig, CognitoIdentityServiceProvider } from 'aws-sdk';
 import { defer } from 'rxjs';
-
 import Auth from '@aws-amplify/auth';
 import { AmplifyConfigurationService } from '../setup/amplify-configuration.service';
 
@@ -17,28 +16,30 @@ export class UsersService {
   /**
    * On construction injects the needed services
    */
-  constructor(private amplifyConfiguration: AmplifyConfigurationService) { }
+  constructor(private amplifyConfiguration: AmplifyConfigurationService) {
+
+  }
 
   /**
    * Set credentials
    */
   private async setCredentials() {
     // set region based on saved configuration
-    AWS.config.region = this.amplifyConfiguration.configurationObj.region;
+    awsConfig.region = this.amplifyConfiguration.configurationObj.region;
     return Auth.currentSession().then(currentSession => {
       // use the IdToken from the current session to get the credetials
       const loginValue = currentSession.getIdToken().getJwtToken();
       const loginKey = ('cognito-idp.' + this.amplifyConfiguration.configurationObj.region + '.amazonaws.com/' +
         this.amplifyConfiguration.configurationObj.userPoolId);
       // setup where to get the credentials from
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      awsConfig.credentials = new CognitoIdentityCredentials({
         IdentityPoolId: this.amplifyConfiguration.configurationObj.identityPoolId,
         Logins: {
           [loginKey]: loginValue
         }
       });
       // refresh the credentials
-      (AWS.config.credentials as AWS.CognitoIdentityCredentials).refresh((err) => { });
+      (awsConfig.credentials as AWS.CognitoIdentityCredentials).refresh((err) => { });
     });
   }
 
@@ -52,7 +53,7 @@ export class UsersService {
     const queryParams = { ...params };
     queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
     // query for list of users
-    const provider = new AWS.CognitoIdentityServiceProvider();
+    const provider = new CognitoIdentityServiceProvider();
     return provider.listUsers(queryParams).promise();
   }
 
