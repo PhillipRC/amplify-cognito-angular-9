@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CognitoIdentityCredentials, config as awsConfig, CognitoIdentityServiceProvider } from 'aws-sdk';
 import { defer } from 'rxjs';
 import Auth from '@aws-amplify/auth';
 import { AmplifyConfigurationService } from '../setup/amplify-configuration.service';
+// AWS global namespace
+const AWS = require('aws-sdk/global');
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html
+const CognitoIdentityServiceProvider = require('aws-sdk/clients/cognitoidentityserviceprovider');
 
 /**
  * Service to connect to AWS CognitoIdentityServiceProvider
- * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html
  */
 @Injectable({
   providedIn: 'root'
@@ -25,21 +27,21 @@ export class UsersService {
    */
   private async setCredentials() {
     // set region based on saved configuration
-    awsConfig.region = this.amplifyConfiguration.configurationObj.region;
+    AWS.config.region = this.amplifyConfiguration.configurationObj.region;
     return Auth.currentSession().then(currentSession => {
       // use the IdToken from the current session to get the credetials
       const loginValue = currentSession.getIdToken().getJwtToken();
       const loginKey = ('cognito-idp.' + this.amplifyConfiguration.configurationObj.region + '.amazonaws.com/' +
         this.amplifyConfiguration.configurationObj.userPoolId);
       // setup where to get the credentials from
-      awsConfig.credentials = new CognitoIdentityCredentials({
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: this.amplifyConfiguration.configurationObj.identityPoolId,
         Logins: {
           [loginKey]: loginValue
         }
       });
       // refresh the credentials
-      (awsConfig.credentials as AWS.CognitoIdentityCredentials).refresh((err) => { });
+      AWS.config.credentials.refresh(() => { });
     });
   }
 
