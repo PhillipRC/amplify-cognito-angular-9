@@ -39,7 +39,7 @@ export class SetupComponent {
       identityPoolId
     };
     // set Amplify configuration
-    Amplify.configure(configurationObject);
+    Amplify.configure({ Auth: configurationObject });
 
     // save the configuration to reload if the browser is refreshed
     this.amplifyConfigService.configured = true;

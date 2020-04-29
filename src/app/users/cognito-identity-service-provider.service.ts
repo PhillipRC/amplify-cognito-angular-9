@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AWS from 'aws-sdk';
-import { from, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import Amplify from 'aws-amplify';
+import { defer } from 'rxjs';
+
 import Auth from '@aws-amplify/auth';
 import { AmplifyConfigurationService } from '../setup/amplify-configuration.service';
 
@@ -15,15 +14,16 @@ import { AmplifyConfigurationService } from '../setup/amplify-configuration.serv
 })
 export class UsersService {
 
-  constructor(private amplifyConfiguration: AmplifyConfigurationService) {
-    this.setCredentials();
-  }
+  /**
+   * On construction injects the needed services
+   */
+  constructor(private amplifyConfiguration: AmplifyConfigurationService) { }
 
   /**
    * Set credentials
    */
-  private setCredentials() {
-    // set region
+  private async setCredentials() {
+    // set region based on saved configuration
     AWS.config.region = this.amplifyConfiguration.configurationObj.region;
     return Auth.currentSession().then(currentSession => {
       // use the IdToken from the current session to get the credetials
@@ -40,22 +40,30 @@ export class UsersService {
       // refresh the credentials
       (AWS.config.credentials as AWS.CognitoIdentityCredentials).refresh((err) => { });
     });
-
   }
 
   /**
-   * List the users
+   * List of Users as a Promise
    */
-  public listUsers(params: any = { Limit: 10 }) {
-
-    // add required parameters
+  public async listUsersAsync(params: any = { Limit: 10 }) {
+    // hit the set credentials for the user
+    await this.setCredentials();
+    // add required parameters from the saved configuration
     const queryParams = { ...params };
     queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
-
+    // query for list of users
     const provider = new AWS.CognitoIdentityServiceProvider();
+    return provider.listUsers(queryParams).promise();
+  }
 
-    // convert promise to observable
-    return from(provider.listUsers(queryParams).promise());
+  /**
+   * List of Users as an Observable
+   */
+  public listUsers(params?: any) {
+    // using defer to wrap the promse and wait for it to finish
+    return defer(() => {
+      return this.listUsersAsync(params);
+    });
   }
 
 }
