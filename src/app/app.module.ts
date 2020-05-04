@@ -18,6 +18,9 @@ import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
 import { SetupComponent } from './setup/setup.component';
+import { UserCreateComponent } from './users/user-create/user-create.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserFormComponent } from './users/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { SetupComponent } from './setup/setup.component';
     DashboardComponent,
     NavMainComponent,
     UsersComponent,
-    SetupComponent
+    SetupComponent,
+    UserCreateComponent,
+    UserListComponent,
+    UserFormComponent
   ],
   imports: [
     AmplifyAngularModule,

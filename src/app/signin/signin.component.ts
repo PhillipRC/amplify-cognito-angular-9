@@ -24,6 +24,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   public currentSessionData: any | null = null;
   public currentUserCredentialsData: any | null = null;
   public currentUserPoolUserData: any | null = null;
+  public cognitoUser: CognitoUser | null = null;
 
   /**
    * expose the entire authState to the template
@@ -135,6 +136,20 @@ export class SigninComponent implements OnInit, OnDestroy {
    */
   public signOut() {
     this.amplifyService.auth().signOut();
+  }
+
+  /**
+   * Change Password
+   */
+  public changePassword(event: Event, oldPassword: string, newPassword: string) {
+    event.preventDefault();
+    this.amplifyService.auth().changePassword(this.currentAuthenticatedUserData, oldPassword, newPassword)
+      .then((data: any) => {
+        this.success(data);
+      })
+      .catch((error: any) => {
+        this.failure(error);
+      });
   }
 
   /**

@@ -1,0 +1,77 @@
+<form
+  (ngSubmit)="submit()"
+  [formGroup]="userFormService.form"
+  autocomplete="off"
+  fxLayout="column"
+  novalidate
+>
+  <!-- username input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="usernameLabel">
+      Username
+    </mat-label>
+
+    <input
+      #email
+      [readonly]="userFormService.mode === UserFormMode.readonly"
+      aria-labelledby="usernameLabel"
+      autocomplete="off"
+      formControlName="username"
+      matInput
+      maxlength="128"
+      required
+    />
+
+    <!-- validation  -->
+    <mat-error>
+      Please enter a value without spaces
+    </mat-error>
+  </mat-form-field>
+
+  <!--email input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="emailLabel">
+      Email
+    </mat-label>
+
+    <input
+      [readonly]="userFormService.mode === UserFormMode.readonly"
+      aria-labelledby="emailLabel"
+      autocomplete="off"
+      formControlName="email"
+      matInput
+      maxlength="2048"
+      required
+      type="email"
+    />
+
+    <!-- validation message for email -->
+    <mat-error>
+      Please enter an email address
+    </mat-error>
+  </mat-form-field>
+
+  <!-- action bar -->
+  <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <!-- cancel option -->
+      <button [routerLink]="['/users']" mat-stroked-button type="button">
+        Cancel
+      </button>
+    </div>
+
+    <!-- create/update option -->
+    <!-- ony show the option if not in readonly mode-->
+    <!-- disable the option if the form is invalid or untouched -->
+    <button
+      *ngIf="userFormService.mode !== UserFormMode.readonly"
+      color="primary"
+      [disabled]="userFormService.form.invalid || userFormService.form.pristine"
+      mat-raised-button
+      type="submit"
+    >
+      <!-- change the label based upon the mode-->
+      {{ userFormService.mode === UserFormMode.create ? "Add" : "Update" }}
+    </button>
+  </div>
+</form>

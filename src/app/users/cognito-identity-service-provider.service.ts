@@ -69,4 +69,30 @@ export class UsersService {
     });
   }
 
+  /**
+   * AdminCreateUser
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminCreateUser-property
+   * https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
+   */
+  public async adminCreateUserAsync(params: any) {
+    // hit the set credentials for the user
+    await this.setCredentials();
+    // add required parameters from the saved configuration
+    const queryParams = { ...params };
+    queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
+    // query for list of users
+    const provider = new CognitoIdentityServiceProvider();
+    return provider.adminCreateUser(queryParams).promise();
+  }
+
+  /**
+   * AdminCreateUser as an Observable
+   */
+  public adminCreateUser(params?: any) {
+    // using defer to wrap the promse and wait for it to finish
+    return defer(() => {
+      return this.adminCreateUserAsync(params);
+    });
+  }
+
 }

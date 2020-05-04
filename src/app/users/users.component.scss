@@ -8,15 +8,11 @@
 
 .app-toolbar {
   @include app-toolbar();
+  .mat-h2 {
+    left: -16px;
+  }
 }
 
 .scroll-container {
   @include container-scroll();
-
-  .table-wrapper {
-    @include mat-elevation(1);
-    .full-width-table {
-      width: 100%;
-    }
-  }
 }

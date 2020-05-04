@@ -7,6 +7,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -16,6 +19,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatMenuModule,
     MatToolbarModule,
     FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
 })
-export class AppVendorModule {}
+export class AppVendorModule { }

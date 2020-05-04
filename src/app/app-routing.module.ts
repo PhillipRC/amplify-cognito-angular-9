@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SigninComponent } from './signin/signin.component';
 import { UsersComponent } from './users/users.component';
 import { SetupComponent } from './setup/setup.component';
+import { UserCreateComponent } from './users/user-create/user-create.component';
+import { UserListComponent } from './users/user-list/user-list.component';
 
 const routes: Routes = [
   // default - dashboard
@@ -21,7 +23,17 @@ const routes: Routes = [
   },
   {
     component: UsersComponent,
-    path: 'users'
+    path: 'users',
+    children: [
+      {
+        component: UserListComponent,
+        path: ''
+      },
+      {
+        component: UserCreateComponent,
+        path: 'add'
+      }
+    ]
   }
 ];
 

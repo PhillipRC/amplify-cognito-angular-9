@@ -2,11 +2,28 @@
 <div class="app-toolbar">
   <mat-toolbar color="accent">
     <mat-toolbar-row class="mat-elevation-z4">
-      <div>
+      <div class="fx-grow" fxLayout="row" fxLayoutAlign="space-between center">
         <div>
-          <h2 class="feature-brand">
-            Users
-          </h2>
+          <button
+            [routerLink]="['/users']"
+            class="mat-h2"
+            color="accent"
+            mat-flat-button
+            type="button"
+          >
+            <span class="mat-h2">Users</span>
+          </button>
+        </div>
+
+        <div>
+          <button
+            [routerLink]="['/users/add']"
+            color="accent"
+            mat-flat-button
+            type="button"
+          >
+            Add
+          </button>
         </div>
       </div>
     </mat-toolbar-row>
@@ -14,84 +31,7 @@
 </div>
 
 <div class="scroll-container">
-  <div
-    class="container"
-    ngClass.gt-md="constrain"
-    fxLayout="column"
-    fxLayoutGap="16px"
-  >
-    <div
-      *ngIf="users"
-      class="table-wrapper"
-      fxFlex="grow"
-      ngClass.gt-lg="expand"
-      ngClass.gt-md="constrain"
-    >
-      <table class="mat-table cdk-table full-width-table hover">
-        <caption class="sr-only">
-          Table of Users
-        </caption>
-
-        <thead role="rowgroup">
-          <tr class="mat-header-row cdk-header-row no-select">
-            <th class="mat-header-cell cdk-header-cell" id="class_username">
-              Username
-            </th>
-            <th
-              class="mat-header-cell cdk-header-cell"
-              fxShow
-              fxHide.lt-md="true"
-              id="class_userlastmodified"
-            >
-              Last Modified
-            </th>
-            <th
-              class="mat-header-cell cdk-header-cell"
-              fxShow
-              fxHide.lt-md="true"
-              id="class_usercreatedate"
-            >
-              Created
-            </th>
-            <th
-              class="mat-header-cell cdk-header-cell"
-              fxShow
-              fxHide.lt-md="true"
-              id="class_userstatus"
-            >
-              Status
-            </th>
-            <th
-              class="mat-header-cell cdk-header-cell"
-              fxShow
-              fxHide.lt-md="true"
-              id="class_enabled"
-            >
-              Enabled
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let item of users" class="data-row pointer no-select">
-            <td class="mat-cell cdk-cell force-wrap class_username">
-              {{ item.Username }}
-            </td>
-            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-              {{ item.UserLastModifiedDate | date: "short" }}
-            </td>
-            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-              {{ item.UserCreateDate | date: "short" }}
-            </td>
-            <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
-              {{ item.UserStatus }}
-            </td>
-            <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
-              {{ item.Enabled }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="container" ngClass.gt-md="constrain">
+    <router-outlet></router-outlet>
   </div>
 </div>

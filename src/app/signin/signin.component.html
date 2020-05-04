@@ -155,7 +155,7 @@
           "
         >
           <p>
-            You can use this form to perform the self registration operation.
+            This is the starting point for a user perfomring self registration.
           </p>
           <p>
             The inputs are wired to
@@ -212,7 +212,8 @@
           "
         >
           <p>
-            The inputs are wired to
+            Once a user has self-registered a confirmation code is sent to
+            confirm the registration. The inputs are wired to
             <a
               href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#confirmsignup"
               rel="noopener noreferrer"
@@ -248,7 +249,9 @@
         </code>
         <form (submit)="signIn($event, userInput.value, passwordInput.value)">
           <p>
-            The inputs are wired to the
+            This is the last step for a self-registered user, but is the first
+            step for a user created by an Administrator. The inputs are wired to
+            the
             <a
               href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin"
               rel="noopener noreferrer"
@@ -445,6 +448,67 @@
           </p>
           <button type="button" (click)="signOut()">
             Sign Out
+          </button>
+        </form>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>6 - Change Password</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <code>
+          Auth.changePassword()
+        </code>
+        <form
+          (submit)="
+            changePassword(
+              $event,
+              oldPasswordInputChangePassword.value,
+              newPasswordInputChangePassword.value
+            )
+          "
+        >
+          <p>
+            This is an optional action unless the user was created by an
+            Administrator, then user must update the password before continuing.
+            The inputs are wired to
+            <a
+              href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#changepassword"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Auth.changePassword()
+            </a>
+          </p>
+          <label>
+            username
+            <span *ngIf="currentAuthenticatedUserData">
+              {{ currentAuthenticatedUserData.username }}
+            </span>
+          </label>
+          <label>
+            oldPassword
+            <input
+              #oldPasswordInputChangePassword
+              type="text"
+              value=""
+              name="code"
+            />
+          </label>
+          <label>
+            password
+            <input
+              #newPasswordInputChangePassword
+              type="text"
+              value=""
+              name="code"
+            />
+          </label>
+
+          <button *ngIf="currentAuthenticatedUserData" type="submit">
+            Change Password
           </button>
         </form>
       </mat-expansion-panel>

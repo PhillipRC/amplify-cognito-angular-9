@@ -1,0 +1,7 @@
+@import "~@angular/material/theming";
+.table-wrapper {
+  @include mat-elevation(1);
+  .full-width-table {
+    width: 100%;
+  }
+}

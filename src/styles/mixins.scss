@@ -135,12 +135,18 @@
   }
 }
 
-@mixin notes() {
+@mixin card() {
   background-color: #fff;
   border-radius: 4px;
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@mixin notes() {
+  @include card();
+  padding-bottom: 0;
   a {
     color: #000;
     font-weight: bold;
