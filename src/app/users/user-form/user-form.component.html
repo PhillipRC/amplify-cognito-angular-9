@@ -126,6 +126,7 @@
       </button>
       <!-- delete option -->
       <button
+        *ngIf="userFormService.mode !== UserFormMode.create"
         (click)="deleteUser()"
         mat-stroked-button
         color="warn"
