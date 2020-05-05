@@ -15,10 +15,14 @@ const CognitoIdentityServiceProvider = require('aws-sdk/clients/cognitoidentitys
 })
 export class UsersService {
 
+  private userPoolId: string;
+
   /**
    * On construction injects the needed services
    */
-  constructor(private amplifyConfiguration: AmplifyConfigurationService) { }
+  constructor(private amplifyConfiguration: AmplifyConfigurationService) {
+    this.userPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
+  }
 
   /**
    * Set credentials
@@ -44,17 +48,16 @@ export class UsersService {
   }
 
   /**
-   * List of Users as a Promise
+   * Provide a common async call to wrap credetials and API call
    */
-  public async listUsersAsync(params: any = { Limit: 10 }) {
+  private async providerAsync(name: string, params: any) {
     // hit the set credentials for the user
     await this.setCredentials();
     // add required parameters from the saved configuration
     const queryParams = { ...params };
-    queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
-    // query for list of users
+    queryParams.UserPoolId = this.userPoolId;
     const provider = new CognitoIdentityServiceProvider();
-    return provider.listUsers(queryParams).promise();
+    return provider[name](queryParams).promise();
   }
 
   /**
@@ -63,82 +66,41 @@ export class UsersService {
   public listUsers(params?: any) {
     // using defer to wrap the promse and wait for it to finish
     return defer(() => {
-      return this.listUsersAsync(params);
+      return this.providerAsync('listUsers', params);
     });
-  }
-
-  /**
-   * AdminCreateUser
-   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminCreateUser-property
-   * https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
-   */
-  public async adminCreateUserAsync(params: any) {
-    // hit the set credentials for the user
-    await this.setCredentials();
-    // add required parameters from the saved configuration
-    const queryParams = { ...params };
-    queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
-    // query for list of users
-    const provider = new CognitoIdentityServiceProvider();
-    return provider.adminCreateUser(queryParams).promise();
   }
 
   /**
    * AdminCreateUser as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminCreateUser-property
+   * https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
    */
   public adminCreateUser(params?: any) {
     // using defer to wrap the promse and wait for it to finish
     return defer(() => {
-      return this.adminCreateUserAsync(params);
+      return this.providerAsync('adminCreateUser', params);
     });
   }
 
   /**
-   * AdminGetUser
-   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminGetUser-property
-   */
-  public async adminGetUserAsync(params: any) {
-    // hit the set credentials for the user
-    await this.setCredentials();
-    // add required parameters from the saved configuration
-    const queryParams = { ...params };
-    queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
-    // query for a user
-    const provider = new CognitoIdentityServiceProvider();
-    return provider.adminGetUser(queryParams).promise();
-  }
-
-  /**
    * AdminGetUser as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminGetUser-property
    */
   public adminGetUser(params?: any) {
     // using defer to wrap the promse and wait for it to finish
     return defer(() => {
-      return this.adminGetUserAsync(params);
+      return this.providerAsync('adminGetUser', params);
     });
   }
 
   /**
-   * AdminUpdateUserAttributes
+   * AdminUpdateUserAttributes as an Observable
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminUpdateUserAttributes-property
-   */
-  public async adminUpdateUserAttributesAsync(params: any) {
-    // hit the set credentials for the user
-    await this.setCredentials();
-    // add required parameters from the saved configuration
-    const queryParams = { ...params };
-    queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
-    const provider = new CognitoIdentityServiceProvider();
-    return provider.adminUpdateUserAttributes(queryParams).promise();
-  }
-
-  /**
-   * AdminGetUser as an Observable
    */
   public adminUpdateUserAttributes(params?: any) {
     // using defer to wrap the promse and wait for it to finish
     return defer(() => {
-      return this.adminUpdateUserAttributesAsync(params);
+      return this.providerAsync('adminUpdateUserAttributes', params);
     });
   }
 

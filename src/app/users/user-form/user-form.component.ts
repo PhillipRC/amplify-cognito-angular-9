@@ -88,16 +88,12 @@ export class UserFormComponent implements OnChanges, OnDestroy {
       // perform create
       this.userSubscription = this.userService.adminCreateUser(
         {
-          Username: userData.username,
+          Username: userData.Username,
           DesiredDeliveryMediums: ['EMAIL'],
           UserAttributes: [
             {
               Name: 'email',
-              Value: userData.email
-            },
-            {
-              Name: 'name',
-              Value: 'My Name'
+              Value: userData.Email
             },
             {
               Name: 'email_verified',
@@ -113,16 +109,23 @@ export class UserFormComponent implements OnChanges, OnDestroy {
       // perform update
       this.userSubscription = this.userService.adminUpdateUserAttributes(
         {
-          Username: 'test',
+          Username: userData.Username,
           UserAttributes: [
             {
               Name: 'email',
-              Value: userData.email
+              Value: userData.Email
             }
           ]
 
         }
-      ).subscribe();
+      ).subscribe(
+        data => {
+          this.isLoading = false;
+        },
+        err => {
+          this.isLoading = false;
+        }
+      );
     }
 
   }
