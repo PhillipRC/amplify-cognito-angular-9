@@ -11,17 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserEditComponent {
   /**
-   * Expose userId to template
+   * Expose the username to template
    */
-  public userId = 0;
+  public username = '';
 
   /**
    * On construction injects the needed services
    */
   constructor(private activatedRoute: ActivatedRoute) {
-    // set userId to value in route
+    // set username to value in route
     if (this.activatedRoute.snapshot.params.id) {
-      this.userId = this.activatedRoute.snapshot.params.id;
+      this.username = this.activatedRoute.snapshot.params.id;
     }
   }
 

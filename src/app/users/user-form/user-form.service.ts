@@ -24,7 +24,7 @@ export class UserFormService {
    * Default values
    */
   private defaults = {
-    email: '',
+    Email: '',
     Username: ''
   };
 
@@ -37,7 +37,7 @@ export class UserFormService {
    * Form definition
    */
   public form: FormGroup = new FormBuilder().group({
-    email: new FormControl(this.defaults.email, [
+    Email: new FormControl(this.defaults.Email, [
       Validators.pattern(/^[a-zA-Z0-9_.+-]+@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/),
       Validators.required,
       Validators.minLength(5),
@@ -49,7 +49,7 @@ export class UserFormService {
       Validators.minLength(1),
       Validators.maxLength(128)
     ]),
-    sub: new FormControl(''),
+    Sub: new FormControl(''),
     UserCreatedDate: new FormControl('')
   });
 
@@ -73,8 +73,8 @@ export class UserFormService {
       {
         Username: data.Username,
         UserCreatedDate: data.UserCreateDate,
-        email: this.findValue('email', data.UserAttributes),
-        sub: this.findValue('sub', data.UserAttributes)
+        Email: this.findValue('email', data.UserAttributes),
+        Sub: this.findValue('sub', data.UserAttributes)
       }
     );
 

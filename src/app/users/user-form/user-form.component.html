@@ -12,7 +12,7 @@
     </mat-label>
 
     <input
-      #email
+      #usernameinput
       [readonly]="userFormService.mode !== UserFormMode.create"
       aria-labelledby="usernameLabel"
       autocomplete="off"
@@ -38,7 +38,7 @@
       [readonly]="userFormService.mode === UserFormMode.readonly"
       aria-labelledby="emailLabel"
       autocomplete="off"
-      formControlName="email"
+      formControlName="Email"
       matInput
       maxlength="2048"
       required
@@ -66,7 +66,7 @@
       [readonly]="true"
       aria-labelledby="subLabel"
       autocomplete="off"
-      formControlName="sub"
+      formControlName="Sub"
       matInput
     />
   </mat-form-field>
@@ -95,7 +95,7 @@
   <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between">
     <div>
       <!-- cancel option -->
-      <button [routerLink]="['/users']" mat-stroked-button type="button">
+      <button (click)="back()" mat-stroked-button type="button">
         Cancel
       </button>
     </div>

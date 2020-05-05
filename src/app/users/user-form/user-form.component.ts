@@ -3,6 +3,7 @@ import { UserFormService, UserFormMode } from './user-form.service';
 import { UsersService } from '../cognito-identity-service-provider.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
@@ -16,13 +17,13 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   @Input() focus = false;
 
   /**
-   * Id of user to edit - default to create a new user
+   * username of user to edit
    */
-  @Input() userId = 0;
+  @Input() username = '';
 
   // reference to set focus on this field
-  @ViewChild('email', { static: true })
-  email: any;
+  @ViewChild('usernameinput', { static: true })
+  usernameinput: any;
 
   /**
    * expose modes emun to template
@@ -43,7 +44,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
    * Set focus to input
    */
   setFocus() {
-    this.email.nativeElement.focus();
+    this.usernameinput.nativeElement.focus();
   }
 
   /**
@@ -65,7 +66,8 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   constructor(
     private router: Router,
     public userFormService: UserFormService,
-    private userService: UsersService
+    private userService: UsersService,
+    private location: Location
   ) { }
 
   /**
@@ -117,6 +119,13 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   }
 
   /**
+   * Perform browser back operation
+   */
+  public back() {
+    this.location.back();
+  }
+
+  /**
    * Handle changes from component inputs
    */
   ngOnChanges() {
@@ -128,14 +137,14 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     // set back to pristine
     this.userFormService.form.markAsPristine();
 
-    if (this.userId === 0) {
+    if (this.username === '') {
       this.userFormService.mode = UserFormMode.create;
       // setup for for create
       this.userFormService.reset();
     } else {
       // load user data
       this.userLoadSubscription = this.userService
-        .adminGetUser({ Username: this.userId })
+        .adminGetUser({ Username: this.username })
         .subscribe(data => {
           // set edit mode
           this.userFormService.mode = UserFormMode.edit;
