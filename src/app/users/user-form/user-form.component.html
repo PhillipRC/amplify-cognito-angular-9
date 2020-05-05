@@ -119,10 +119,19 @@
 
   <!-- action bar -->
   <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between">
-    <div>
+    <div fxLayout="row" fxLayoutGap="16px">
       <!-- back option -->
       <button (click)="back()" mat-stroked-button type="button">
         Back
+      </button>
+      <!-- delete option -->
+      <button
+        (click)="deleteUser()"
+        mat-stroked-button
+        color="warn"
+        type="button"
+      >
+        Delete
       </button>
     </div>
 

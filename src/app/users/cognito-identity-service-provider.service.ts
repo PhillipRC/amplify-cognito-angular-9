@@ -120,4 +120,12 @@ export class UsersService {
     return this.providerObservable('adminDisableUser', params);
   }
 
+  /**
+   * AdminDeleteUser
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminDeleteUser-property
+   */
+  public adminDeleteUser(params?: any) {
+    return this.providerObservable('adminDeleteUser', params);
+  }
+
 }

@@ -81,7 +81,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   public enableToggle() {
     // display loading indicator
     this.isLoading = true;
-    // unsubscribe for anything before
+    // unsubscribe form anything before
     this.unsubscribe();
     const userData = this.userFormService.form.getRawValue();
     const params = {
@@ -89,11 +89,45 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     };
     let method = 'adminEnableUser';
     if (userData.Enabled) {
-      method = 'adminDisableUser'
-    };
+      method = 'adminDisableUser';
+    }
     this.userSubscription = this.userService.providerObservable(method, params).subscribe(
       data => {
         this.isLoading = false;
+      },
+      err => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  /**
+   * Delete a user
+   */
+  public deleteUser() {
+    // display loading indicator
+    this.isLoading = true;
+
+    // confirmation
+    const confirmRemove = confirm(
+      'Are you sure you want to proceed with removing the User?'
+    );
+    if (confirmRemove === false) {
+      // display loader
+      this.isLoading = false;
+      return;
+    }
+
+    // unsubscribe form anything before
+    this.unsubscribe();
+    const userData = this.userFormService.form.getRawValue();
+    const params = {
+      Username: userData.Username
+    };
+    this.userSubscription = this.userService.adminDeleteUser(params).subscribe(
+      data => {
+        this.isLoading = false;
+        this.router.navigate(['users']);
       },
       err => {
         this.isLoading = false;
@@ -107,7 +141,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   public submit() {
     // display loading indicator
     this.isLoading = true;
-    // unsubscribe for anything before
+    // unsubscribe form anything before
     this.unsubscribe();
     const userData = this.userFormService.form.getRawValue();
     // create object with common paramaters to submit to API
