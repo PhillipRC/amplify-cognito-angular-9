@@ -61,13 +61,22 @@ export class UsersService {
   }
 
   /**
+   * Provides a common call to wrap the API Promise in an Observable
+   * @param name Name of the API method to call
+   * @param params Params to pass to the method
+   */
+  public providerObservable(name: string, params: any) {
+    // using defer to wrap the promse and wait for it to finish
+    return defer(() => {
+      return this.providerAsync(name, params);
+    });
+  }
+
+  /**
    * List of Users as an Observable
    */
   public listUsers(params?: any) {
-    // using defer to wrap the promse and wait for it to finish
-    return defer(() => {
-      return this.providerAsync('listUsers', params);
-    });
+    return this.providerObservable('listUsers', params);
   }
 
   /**
@@ -76,10 +85,7 @@ export class UsersService {
    * https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
    */
   public adminCreateUser(params?: any) {
-    // using defer to wrap the promse and wait for it to finish
-    return defer(() => {
-      return this.providerAsync('adminCreateUser', params);
-    });
+    return this.providerObservable('adminCreateUser', params);
   }
 
   /**
@@ -87,10 +93,7 @@ export class UsersService {
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminGetUser-property
    */
   public adminGetUser(params?: any) {
-    // using defer to wrap the promse and wait for it to finish
-    return defer(() => {
-      return this.providerAsync('adminGetUser', params);
-    });
+    return this.providerObservable('adminGetUser', params);
   }
 
   /**
@@ -98,10 +101,7 @@ export class UsersService {
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminUpdateUserAttributes-property
    */
   public adminUpdateUserAttributes(params?: any) {
-    // using defer to wrap the promse and wait for it to finish
-    return defer(() => {
-      return this.providerAsync('adminUpdateUserAttributes', params);
-    });
+    return this.providerObservable('adminUpdateUserAttributes', params);
   }
 
   /**
@@ -109,10 +109,15 @@ export class UsersService {
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminEnableUser-property
    */
   public adminEnableUser(params?: any) {
-    // using defer to wrap the promse and wait for it to finish
-    return defer(() => {
-      return this.providerAsync('adminEnableUser', params);
-    });
+    return this.providerObservable('adminEnableUser', params);
+  }
+
+  /**
+   * AdminEnableUser as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminDisableUser-property
+   */
+  public adminDisableUser(params?: any) {
+    return this.providerObservable('adminDisableUser', params);
   }
 
 }

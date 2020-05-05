@@ -106,12 +106,23 @@
     />
   </mat-form-field>
 
+  <!-- enabled option -->
+  <div *ngIf="userFormService.mode !== UserFormMode.create">
+    <mat-slide-toggle
+      color="primary"
+      checked="{{ this.userFormService.form.getRawValue().Enabled }}"
+      (toggleChange)="enableToggle()"
+    >
+      Enabled
+    </mat-slide-toggle>
+  </div>
+
   <!-- action bar -->
   <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between">
     <div>
-      <!-- cancel option -->
+      <!-- back option -->
       <button (click)="back()" mat-stroked-button type="button">
-        Cancel
+        Back
       </button>
     </div>
 

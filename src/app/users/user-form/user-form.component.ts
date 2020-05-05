@@ -76,6 +76,32 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   ) { }
 
   /**
+   * Toggle Enabled status of user based on current status
+   */
+  public enableToggle() {
+    // display loading indicator
+    this.isLoading = true;
+    // unsubscribe for anything before
+    this.unsubscribe();
+    const userData = this.userFormService.form.getRawValue();
+    const params = {
+      Username: userData.Username
+    };
+    let method = 'adminEnableUser';
+    if (userData.Enabled) {
+      method = 'adminDisableUser'
+    };
+    this.userSubscription = this.userService.providerObservable(method, params).subscribe(
+      data => {
+        this.isLoading = false;
+      },
+      err => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  /**
    * Handle form submit
    */
   public submit() {
@@ -84,49 +110,37 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     // unsubscribe for anything before
     this.unsubscribe();
     const userData = this.userFormService.form.getRawValue();
-    if (this.userFormService.mode === UserFormMode.create) {
-      // perform create
-      this.userSubscription = this.userService.adminCreateUser(
+    // create object with common paramaters to submit to API
+    const params: any = {
+      Username: userData.Username,
+      UserAttributes: [
         {
-          Username: userData.Username,
-          DesiredDeliveryMediums: ['EMAIL'],
-          UserAttributes: [
-            {
-              Name: 'email',
-              Value: userData.Email
-            },
-            {
-              Name: 'name',
-              Value: (userData.Name ? userData.Name : '')
-            },
-            {
-              Name: 'email_verified',
-              Value: 'True'
-            }
-          ]
+          Name: 'email',
+          Value: userData.Email
+        },
+        {
+          Name: 'name',
+          Value: (userData.Name ? userData.Name : '')
         }
-      ).subscribe(data => {
+      ]
+    };
+    if (this.userFormService.mode === UserFormMode.create) {
+      // add verification
+      params.DesiredDeliveryMediums = ['EMAIL'];
+      params.UserAttributes.push(
+        {
+          Name: 'email_verified',
+          Value: 'True'
+        }
+      );
+      // perform create
+      this.userSubscription = this.userService.adminCreateUser(params).subscribe(data => {
         // take user to the user list
         this.router.navigate(['users']);
       });
     } else {
       // perform update
-      this.userSubscription = this.userService.adminUpdateUserAttributes(
-        {
-          Username: userData.Username,
-          UserAttributes: [
-            {
-              Name: 'email',
-              Value: userData.Email
-            },
-            {
-              Name: 'name',
-              Value: (userData.Name ? userData.Name : '')
-            }
-          ]
-
-        }
-      ).subscribe(
+      this.userSubscription = this.userService.adminUpdateUserAttributes(params).subscribe(
         data => {
           this.isLoading = false;
         },
@@ -175,7 +189,6 @@ export class UserFormComponent implements OnChanges, OnDestroy {
           // remove loader
           this.isLoading = false;
         });
-
     }
 
   }
