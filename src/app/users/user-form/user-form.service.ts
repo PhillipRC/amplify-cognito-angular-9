@@ -49,6 +49,7 @@ export class UserFormService {
       Validators.minLength(1),
       Validators.maxLength(128)
     ]),
+    Name: new FormControl(''),
     Sub: new FormControl(''),
     UserCreatedDate: new FormControl('')
   });
@@ -74,6 +75,7 @@ export class UserFormService {
         Username: data.Username,
         UserCreatedDate: data.UserCreateDate,
         Email: this.findValue('email', data.UserAttributes),
+        Name: this.findValue('name', data.UserAttributes),
         Sub: this.findValue('sub', data.UserAttributes)
       }
     );

@@ -104,4 +104,15 @@ export class UsersService {
     });
   }
 
+  /**
+   * AdminEnableUser as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminEnableUser-property
+   */
+  public adminEnableUser(params?: any) {
+    // using defer to wrap the promse and wait for it to finish
+    return defer(() => {
+      return this.providerAsync('adminEnableUser', params);
+    });
+  }
+
 }

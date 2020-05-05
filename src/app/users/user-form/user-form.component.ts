@@ -96,6 +96,10 @@ export class UserFormComponent implements OnChanges, OnDestroy {
               Value: userData.Email
             },
             {
+              Name: 'name',
+              Value: (userData.Name ? userData.Name : '')
+            },
+            {
               Name: 'email_verified',
               Value: 'True'
             }
@@ -114,6 +118,10 @@ export class UserFormComponent implements OnChanges, OnDestroy {
             {
               Name: 'email',
               Value: userData.Email
+            },
+            {
+              Name: 'name',
+              Value: (userData.Name ? userData.Name : '')
             }
           ]
 

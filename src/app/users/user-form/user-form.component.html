@@ -28,7 +28,7 @@
     </mat-error>
   </mat-form-field>
 
-  <!--email input -->
+  <!-- email input -->
   <mat-form-field appearance="standard" color="primary" floatLabel="auto">
     <mat-label id="emailLabel">
       Email
@@ -49,6 +49,21 @@
     <mat-error>
       Please enter an email address
     </mat-error>
+  </mat-form-field>
+
+  <!-- name input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="nameLabel">
+      Name
+    </mat-label>
+
+    <input
+      aria-labelledby="nameLabel"
+      autocomplete="off"
+      formControlName="Name"
+      matInput
+      maxlength="2048"
+    />
   </mat-form-field>
 
   <!-- sub display -->
