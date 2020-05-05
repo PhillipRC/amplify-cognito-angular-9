@@ -1,4 +1,7 @@
 @import "../mixins";
 .user-display {
   @include user-display();
+  h2 {
+    margin-bottom: 16px;
+  }
 }

@@ -1,0 +1,14 @@
+@import "../../styles/mixins";
+
+@mixin user-display() {
+  margin-left: auto;
+  margin-right: auto;
+  h2 {
+    margin: 0;
+  }
+  app-user-form {
+    @include card();
+    display: block;
+    padding-top: 12px;
+  }
+}

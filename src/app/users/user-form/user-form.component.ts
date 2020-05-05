@@ -35,6 +35,11 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   private userSubscription?: Subscription;
 
   /**
+   * Reference to later unsubscribe from the observer
+   */
+  private userLoadSubscription?: Subscription;
+
+  /**
    * Set focus to input
    */
   setFocus() {
@@ -48,6 +53,9 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     // unsubscribe from listeners
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
+    }
+    if (this.userLoadSubscription) {
+      this.userLoadSubscription.unsubscribe();
     }
   }
 
@@ -66,6 +74,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   public submit() {
     const userData = this.userFormService.form.getRawValue();
     if (this.userFormService.mode === UserFormMode.create) {
+      // perform create
       this.userSubscription = this.userService.adminCreateUser(
         {
           Username: userData.username,
@@ -74,6 +83,10 @@ export class UserFormComponent implements OnChanges, OnDestroy {
             {
               Name: 'email',
               Value: userData.email
+            },
+            {
+              Name: 'name',
+              Value: 'My Name'
             },
             {
               Name: 'email_verified',
@@ -85,6 +98,20 @@ export class UserFormComponent implements OnChanges, OnDestroy {
         // take user to the user list
         this.router.navigate(['users']);
       });
+    } else {
+      // perform update
+      this.userSubscription = this.userService.adminUpdateUserAttributes(
+        {
+          Username: 'test',
+          UserAttributes: [
+            {
+              Name: 'email',
+              Value: userData.email
+            }
+          ]
+
+        }
+      ).subscribe();
     }
 
   }
@@ -102,8 +129,20 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     this.userFormService.form.markAsPristine();
 
     if (this.userId === 0) {
+      this.userFormService.mode = UserFormMode.create;
       // setup for for create
       this.userFormService.reset();
+    } else {
+      // load user data
+      this.userLoadSubscription = this.userService
+        .adminGetUser({ Username: this.userId })
+        .subscribe(data => {
+          // set edit mode
+          this.userFormService.mode = UserFormMode.edit;
+          // set the form data
+          this.userFormService.set(data);
+        });
+
     }
 
   }

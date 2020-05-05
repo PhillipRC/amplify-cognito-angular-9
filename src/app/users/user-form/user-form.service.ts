@@ -25,7 +25,7 @@ export class UserFormService {
    */
   private defaults = {
     email: '',
-    username: ''
+    Username: ''
   };
 
   /**
@@ -43,14 +43,42 @@ export class UserFormService {
       Validators.minLength(5),
       Validators.maxLength(2048)
     ]),
-    username: new FormControl(this.defaults.username, [
+    Username: new FormControl(this.defaults.Username, [
       Validators.pattern(/^\S*$/),
       Validators.required,
       Validators.minLength(1),
       Validators.maxLength(128)
     ]),
-
+    sub: new FormControl(''),
+    UserCreatedDate: new FormControl('')
   });
+
+  /**
+   * Helper to find value in array of objects
+   */
+  private findValue(key: string, data: Array<any>) {
+    const found = data.find(element => element.Name === key);
+    if (found) {
+      return found.Value;
+    } else {
+      return '';
+    }
+  }
+
+  /**
+   * Set form data from CognitoUser
+   */
+  public set(data: any) {
+    this.form.setValue(
+      {
+        Username: data.Username,
+        UserCreatedDate: data.UserCreateDate,
+        email: this.findValue('email', data.UserAttributes),
+        sub: this.findValue('sub', data.UserAttributes)
+      }
+    );
+
+  }
 
   /**
    * Restore the form to default values

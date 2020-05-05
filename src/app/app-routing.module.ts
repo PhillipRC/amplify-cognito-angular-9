@@ -6,6 +6,7 @@ import { UsersComponent } from './users/users.component';
 import { SetupComponent } from './setup/setup.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import { UserListComponent } from './users/user-list/user-list.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 const routes: Routes = [
   // default - dashboard
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         component: UserCreateComponent,
         path: 'add'
+      },
+      {
+        component: UserEditComponent,
+        path: ':id'
       }
     ]
   }

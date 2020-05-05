@@ -51,7 +51,11 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let item of users" class="data-row pointer no-select">
+      <tr
+        *ngFor="let item of users"
+        class="data-row pointer no-select"
+        [routerLink]="['/users/', item.Username]"
+      >
         <td class="mat-cell cdk-cell force-wrap class_username">
           {{ item.Username }}
         </td>

@@ -13,10 +13,10 @@
 
     <input
       #email
-      [readonly]="userFormService.mode === UserFormMode.readonly"
+      [readonly]="userFormService.mode !== UserFormMode.create"
       aria-labelledby="usernameLabel"
       autocomplete="off"
-      formControlName="username"
+      formControlName="Username"
       matInput
       maxlength="128"
       required
@@ -49,6 +49,46 @@
     <mat-error>
       Please enter an email address
     </mat-error>
+  </mat-form-field>
+
+  <!-- sub display -->
+  <mat-form-field
+    *ngIf="userFormService.mode !== UserFormMode.create"
+    appearance="standard"
+    color="primary"
+    floatLabel="auto"
+  >
+    <mat-label id="subLabel">
+      Sub
+    </mat-label>
+
+    <input
+      [readonly]="true"
+      aria-labelledby="subLabel"
+      autocomplete="off"
+      formControlName="sub"
+      matInput
+    />
+  </mat-form-field>
+
+  <!-- create date -->
+  <mat-form-field
+    *ngIf="userFormService.mode !== UserFormMode.create"
+    appearance="standard"
+    color="primary"
+    floatLabel="auto"
+  >
+    <mat-label id="createdLabel">
+      Created
+    </mat-label>
+
+    <input
+      [readonly]="true"
+      aria-labelledby="createdLabel"
+      autocomplete="off"
+      formControlName="UserCreatedDate"
+      matInput
+    />
   </mat-form-field>
 
   <!-- action bar -->

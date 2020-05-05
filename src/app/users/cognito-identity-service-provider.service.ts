@@ -18,9 +18,7 @@ export class UsersService {
   /**
    * On construction injects the needed services
    */
-  constructor(private amplifyConfiguration: AmplifyConfigurationService) {
-
-  }
+  constructor(private amplifyConfiguration: AmplifyConfigurationService) { }
 
   /**
    * Set credentials
@@ -92,6 +90,55 @@ export class UsersService {
     // using defer to wrap the promse and wait for it to finish
     return defer(() => {
       return this.adminCreateUserAsync(params);
+    });
+  }
+
+  /**
+   * AdminGetUser
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminGetUser-property
+   */
+  public async adminGetUserAsync(params: any) {
+    // hit the set credentials for the user
+    await this.setCredentials();
+    // add required parameters from the saved configuration
+    const queryParams = { ...params };
+    queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
+    // query for a user
+    const provider = new CognitoIdentityServiceProvider();
+    return provider.adminGetUser(queryParams).promise();
+  }
+
+  /**
+   * AdminGetUser as an Observable
+   */
+  public adminGetUser(params?: any) {
+    // using defer to wrap the promse and wait for it to finish
+    return defer(() => {
+      return this.adminGetUserAsync(params);
+    });
+  }
+
+  /**
+   * AdminUpdateUserAttributes
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminUpdateUserAttributes-property
+   */
+  public async adminUpdateUserAttributesAsync(params: any) {
+    // hit the set credentials for the user
+    await this.setCredentials();
+    // add required parameters from the saved configuration
+    const queryParams = { ...params };
+    queryParams.UserPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
+    const provider = new CognitoIdentityServiceProvider();
+    return provider.adminUpdateUserAttributes(queryParams).promise();
+  }
+
+  /**
+   * AdminGetUser as an Observable
+   */
+  public adminUpdateUserAttributes(params?: any) {
+    // using defer to wrap the promse and wait for it to finish
+    return defer(() => {
+      return this.adminUpdateUserAttributesAsync(params);
     });
   }
 
