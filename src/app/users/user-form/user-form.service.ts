@@ -52,7 +52,8 @@ export class UserFormService {
     Enabled: new FormControl(''),
     Name: new FormControl(''),
     Sub: new FormControl(''),
-    UserCreatedDate: new FormControl('')
+    UserCreatedDate: new FormControl(''),
+    UserLastModifiedDate: new FormControl('')
   });
 
   /**
@@ -75,6 +76,7 @@ export class UserFormService {
       {
         Username: data.Username,
         UserCreatedDate: data.UserCreateDate,
+        UserLastModifiedDate: data.UserLastModifiedDate,
         Enabled: data.Enabled,
         Email: this.findValue('email', data.UserAttributes),
         Name: this.findValue('name', data.UserAttributes),

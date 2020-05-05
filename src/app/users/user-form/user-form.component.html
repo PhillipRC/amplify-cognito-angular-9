@@ -86,7 +86,7 @@
     />
   </mat-form-field>
 
-  <!-- create date -->
+  <!-- created date -->
   <mat-form-field
     *ngIf="userFormService.mode !== UserFormMode.create"
     appearance="standard"
@@ -102,6 +102,26 @@
       aria-labelledby="createdLabel"
       autocomplete="off"
       formControlName="UserCreatedDate"
+      matInput
+    />
+  </mat-form-field>
+
+  <!-- last modified date -->
+  <mat-form-field
+    *ngIf="userFormService.mode !== UserFormMode.create"
+    appearance="standard"
+    color="primary"
+    floatLabel="auto"
+  >
+    <mat-label id="lastModifiedLabel">
+      Last Modified
+    </mat-label>
+
+    <input
+      [readonly]="true"
+      aria-labelledby="lastModifiedLabel"
+      autocomplete="off"
+      formControlName="UserLastModifiedDate"
       matInput
     />
   </mat-form-field>

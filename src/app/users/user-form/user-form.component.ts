@@ -76,6 +76,24 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   ) { }
 
   /**
+   * Load/Reload the user data
+   */
+  public load() {
+    this.isLoading = true;
+    // load user data
+    this.userLoadSubscription = this.userService
+      .adminGetUser({ Username: this.username })
+      .subscribe(data => {
+        // set edit mode
+        this.userFormService.mode = UserFormMode.edit;
+        // set the form data
+        this.userFormService.set(data);
+        // remove loader
+        this.isLoading = false;
+      });
+  }
+
+  /**
    * Toggle Enabled status of user based on current status
    */
   public enableToggle() {
@@ -93,7 +111,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     }
     this.userSubscription = this.userService.providerObservable(method, params).subscribe(
       data => {
-        this.isLoading = false;
+        this.load();
       },
       err => {
         this.isLoading = false;
@@ -212,17 +230,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
       // remove loader
       this.isLoading = false;
     } else {
-      // load user data
-      this.userLoadSubscription = this.userService
-        .adminGetUser({ Username: this.username })
-        .subscribe(data => {
-          // set edit mode
-          this.userFormService.mode = UserFormMode.edit;
-          // set the form data
-          this.userFormService.set(data);
-          // remove loader
-          this.isLoading = false;
-        });
+      this.load();
     }
 
   }
