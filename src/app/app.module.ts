@@ -23,6 +23,7 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { LoaderComponentComponent } from './shared/components/loader-component/loader-component.component';
+import { UserAttributes } from './shared/pipes/user-attributes.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { LoaderComponentComponent } from './shared/components/loader-component/l
     UserListComponent,
     UserFormComponent,
     UserEditComponent,
-    LoaderComponentComponent
+    LoaderComponentComponent,
+    UserAttributes
   ],
   imports: [
     AmplifyAngularModule,

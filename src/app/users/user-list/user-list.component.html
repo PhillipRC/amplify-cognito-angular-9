@@ -11,30 +11,30 @@
 
     <thead role="rowgroup">
       <tr class="mat-header-row cdk-header-row no-select">
-        <th class="mat-header-cell cdk-header-cell" id="class_username">
+        <th class="mat-header-cell cdk-header-cell" id="user_username">
           Username
         </th>
         <th
           class="mat-header-cell cdk-header-cell"
           fxShow
           fxHide.lt-md="true"
-          id="class_userlastmodified"
+          id="user_useremail"
         >
-          Last Modified
+          Email
         </th>
         <th
           class="mat-header-cell cdk-header-cell"
           fxShow
           fxHide.lt-md="true"
-          id="class_usercreatedate"
+          id="user_name"
         >
-          Created
+          Name
         </th>
         <th
           class="mat-header-cell cdk-header-cell"
           fxShow
           fxHide.lt-md="true"
-          id="class_userstatus"
+          id="user_userstatus"
         >
           Status
         </th>
@@ -42,7 +42,7 @@
           class="mat-header-cell cdk-header-cell"
           fxShow
           fxHide.lt-md="true"
-          id="class_enabled"
+          id="user_enabled"
         >
           Enabled
         </th>
@@ -55,14 +55,14 @@
         class="data-row pointer no-select"
         [routerLink]="['/users/', item.Username]"
       >
-        <td class="mat-cell cdk-cell force-wrap class_username">
+        <td class="mat-cell cdk-cell force-wrap">
           {{ item.Username }}
         </td>
         <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-          {{ item.UserLastModifiedDate | date: "short" }}
+          {{ item | userAttributes: "email" }}
         </td>
         <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-          {{ item.UserCreateDate | date: "short" }}
+          {{ item | userAttributes: "name" }}
         </td>
         <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
           {{ item.UserStatus }}

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 
+/**
+ * Display a loader
+ */
 @Component({
   selector: 'app-loader-component',
   templateUrl: './loader-component.component.html',
