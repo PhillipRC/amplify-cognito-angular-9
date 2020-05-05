@@ -35,6 +35,11 @@ export class UsersService {
       const loginValue = currentSession.getIdToken().getJwtToken();
       const loginKey = ('cognito-idp.' + this.amplifyConfiguration.configurationObj.region + '.amazonaws.com/' +
         this.amplifyConfiguration.configurationObj.userPoolId);
+
+      // if credetials are good do not bother with refresh()
+      if (AWS.config.credentials && AWS.config.credentials.expired === false) {
+        return;
+      }
       // setup where to get the credentials from
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: this.amplifyConfiguration.configurationObj.identityPoolId,
@@ -44,6 +49,7 @@ export class UsersService {
       });
       // refresh the credentials
       AWS.config.credentials.refresh(() => { });
+
     });
   }
 
