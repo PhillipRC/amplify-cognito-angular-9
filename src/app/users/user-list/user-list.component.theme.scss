@@ -1,0 +1,10 @@
+@import "~@angular/material/theming";
+@mixin app-user-list-component($theme) {
+  $primary: map-get($theme, primary);
+  app-user-list {
+    mat-icon {
+      // leverage mat-color() to get colors from the theme
+      color: mat-color($primary, text);
+    }
+  }
+}

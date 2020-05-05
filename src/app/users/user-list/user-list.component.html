@@ -39,7 +39,7 @@
           Status
         </th>
         <th
-          class="mat-header-cell cdk-header-cell"
+          class="mat-header-cell cdk-header-cell text-center"
           fxShow
           fxHide.lt-md="true"
           id="user_enabled"
@@ -67,8 +67,10 @@
         <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
           {{ item.UserStatus }}
         </td>
-        <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
-          {{ item.Enabled }}
+        <td class="mat-cell cdk-cell text-center" fxShow fxHide.lt-md="true">
+          <mat-icon *ngIf="item.Enabled" aria-hidden="true" svgIcon="fa-circle">
+          </mat-icon>
+          <span class="sr-only">{{ item.Enabled }}</span>
         </td>
       </tr>
     </tbody>

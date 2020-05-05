@@ -21,4 +21,8 @@ $app-warn: mat-palette($mat-deep-orange);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include angular-material-theme($app-theme);
 
+// Apply theme to components
+@import "../app/users/user-list/user-list.component.theme.scss";
+@include app-user-list-component($app-theme);
+
 @import "./global.scss";

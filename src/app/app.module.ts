@@ -1,8 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 // vendor components
 import { AppVendorModule } from './app-vendor.module';
@@ -24,6 +25,7 @@ import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { LoaderComponentComponent } from './shared/components/loader-component/loader-component.component';
 import { UserAttributes } from './shared/pipes/user-attributes.pipe';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { UserAttributes } from './shared/pipes/user-attributes.pipe';
     AppVendorModule,
     BrowserAnimationsModule,
     BrowserModule,
+    HttpClientModule
   ],
   providers: [
     {
@@ -59,4 +62,14 @@ import { UserAttributes } from './shared/pipes/user-attributes.pipe';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    // add font awesome SVG icons
+    matIconRegistry.addSvgIconSet(
+      domSanitizer.bypassSecurityTrustResourceUrl('./assets/icons/fa-icons.svg'),
+      {
+        viewBox: '0 0 640 640'
+      }
+    );
+  }
+}

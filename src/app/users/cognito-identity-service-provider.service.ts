@@ -49,7 +49,6 @@ export class UsersService {
       });
       // refresh the credentials
       AWS.config.credentials.refresh(() => { });
-
     });
   }
 
