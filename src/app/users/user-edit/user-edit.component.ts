@@ -20,8 +20,8 @@ export class UserEditComponent {
    */
   constructor(private activatedRoute: ActivatedRoute) {
     // set username to value in route
-    if (this.activatedRoute.snapshot.params.id) {
-      this.username = this.activatedRoute.snapshot.params.id;
+    if (this.activatedRoute.snapshot.params.username) {
+      this.username = this.activatedRoute.snapshot.params.username;
     }
   }
 

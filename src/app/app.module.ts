@@ -22,6 +22,7 @@ import { UserCreateComponent } from './users/user-create/user-create.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { LoaderComponentComponent } from './shared/components/loader-component/loader-component.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
     UserCreateComponent,
     UserListComponent,
     UserFormComponent,
-    UserEditComponent
+    UserEditComponent,
+    LoaderComponentComponent
   ],
   imports: [
     AmplifyAngularModule,

@@ -36,7 +36,7 @@ const routes: Routes = [
       },
       {
         component: UserEditComponent,
-        path: ':id'
+        path: ':username'
       }
     ]
   }

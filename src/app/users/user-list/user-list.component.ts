@@ -20,6 +20,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   private usersServiceSubscription?: Subscription;
 
   /**
+   * Controls displaying the loading indicator during asynchronous operations
+   */
+  public isLoading = true;
+
+  /**
    * On construction injects the needed services
    */
   constructor(public usersService: UsersService) { }
@@ -29,7 +34,10 @@ export class UserListComponent implements OnInit, OnDestroy {
    */
   public listUsers() {
     this.usersServiceSubscription = this.usersService.listUsers().subscribe(data => {
+      // save data for template
       this.users = data.Users;
+      // remove loader
+      this.isLoading = false;
     });
   }
 

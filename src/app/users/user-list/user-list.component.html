@@ -1,5 +1,4 @@
 <div
-  *ngIf="users"
   class="table-wrapper"
   fxFlex="grow"
   ngClass.gt-lg="expand"
@@ -74,4 +73,7 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- loader -->
+  <app-loader-component *ngIf="isLoading"> </app-loader-component>
 </div>

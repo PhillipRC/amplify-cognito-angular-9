@@ -41,6 +41,11 @@ export class UserFormComponent implements OnChanges, OnDestroy {
   private userLoadSubscription?: Subscription;
 
   /**
+   * Controls displaying the loading indicator during asynchronous operations
+   */
+  public isLoading = true;
+
+  /**
    * Set focus to input
    */
   setFocus() {
@@ -74,6 +79,10 @@ export class UserFormComponent implements OnChanges, OnDestroy {
    * Handle form submit
    */
   public submit() {
+    // display loading indicator
+    this.isLoading = true;
+    // unsubscribe for anything before
+    this.unsubscribe();
     const userData = this.userFormService.form.getRawValue();
     if (this.userFormService.mode === UserFormMode.create) {
       // perform create
@@ -141,6 +150,8 @@ export class UserFormComponent implements OnChanges, OnDestroy {
       this.userFormService.mode = UserFormMode.create;
       // setup for for create
       this.userFormService.reset();
+      // remove loader
+      this.isLoading = false;
     } else {
       // load user data
       this.userLoadSubscription = this.userService
@@ -150,6 +161,8 @@ export class UserFormComponent implements OnChanges, OnDestroy {
           this.userFormService.mode = UserFormMode.edit;
           // set the form data
           this.userFormService.set(data);
+          // remove loader
+          this.isLoading = false;
         });
 
     }

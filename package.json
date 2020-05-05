@@ -22,6 +22,7 @@
     "@angular/platform-browser": "~9.1.1",
     "@angular/platform-browser-dynamic": "~9.1.1",
     "@angular/router": "~9.1.1",
+    "angular-animations": "0.0.10",
     "aws-amplify": "^3.0.8",
     "aws-amplify-angular": "^5.0.8",
     "aws-sdk": "^2.659.0",
