@@ -170,7 +170,9 @@ export class UserSearchComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     // focus on search input
-    this.search.nativeElement.focus();
+    setTimeout(() => {
+      this.search.nativeElement.focus();
+    }, 1);
     // perform default search
     this.submit();
     // setup a subscription to update the search options when the attribute updates
