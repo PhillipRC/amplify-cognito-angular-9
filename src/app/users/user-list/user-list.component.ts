@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { UsersService } from '../cognito-identity-service-provider.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnDestroy, OnChanges {
+
+  /**
+   * params to search with
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsers-property
+   */
+  @Input() params: any | null = null;
 
   /**
    * Expose users to the template
@@ -33,7 +39,7 @@ export class UserListComponent implements OnInit, OnDestroy {
    * Get a list of users
    */
   public listUsers() {
-    this.usersServiceSubscription = this.usersService.listUsers().subscribe(data => {
+    this.usersServiceSubscription = this.usersService.listUsers(this.params).subscribe(data => {
       // save data for template
       this.users = data.Users;
       // remove loader
@@ -42,9 +48,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles when the component is first created
+   * Handle changes from component inputs
    */
-  public ngOnInit() {
+  public ngOnChanges() {
+    this.isLoading = true;
     this.listUsers();
   }
 

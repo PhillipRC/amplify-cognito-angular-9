@@ -26,6 +26,7 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { LoaderComponentComponent } from './shared/components/loader-component/loader-component.component';
 import { UserAttributes } from './shared/pipes/user-attributes.pipe';
 import { MatIconRegistry } from '@angular/material/icon';
+import { UserSearchComponent } from './users/user-search/user-search.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatIconRegistry } from '@angular/material/icon';
     UserFormComponent,
     UserEditComponent,
     LoaderComponentComponent,
-    UserAttributes
+    UserAttributes,
+    UserSearchComponent
   ],
   imports: [
     AmplifyAngularModule,

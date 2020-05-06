@@ -79,6 +79,7 @@ export class UsersService {
 
   /**
    * List of Users as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsers-property
    */
   public listUsers(params?: any) {
     return this.providerObservable('listUsers', params);

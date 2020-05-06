@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   exports: [
@@ -27,7 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
 })
 export class AppVendorModule { }

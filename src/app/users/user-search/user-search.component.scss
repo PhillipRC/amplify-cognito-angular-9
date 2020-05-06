@@ -1,0 +1,7 @@
+@import "../../../styles/mixins";
+
+.search-form {
+  @include card();
+  padding-top: 8px;
+  padding-bottom: 0;
+}

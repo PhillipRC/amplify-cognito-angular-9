@@ -1,0 +1,73 @@
+<div fxLayout="column" fxLayoutGap="16px">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    autocomplete="off"
+    class="search-form"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="16px"
+    novalidate
+  >
+    <!-- attribute input -->
+    <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+      <mat-label id="attributeLabel">
+        Attribute
+      </mat-label>
+
+      <mat-select
+        aria-labelledby="attributeLabel"
+        formControlName="attributeFormControl"
+      >
+        <mat-option
+          *ngFor="let attribute of attributes"
+          [value]="attribute.value"
+        >
+          {{ attribute.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- type input -->
+    <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+      <mat-label id="typeLabel">
+        Type
+      </mat-label>
+
+      <mat-select aria-labelledby="typeLabel" formControlName="typeFormControl">
+        <mat-option *ngFor="let type of types" [value]="type.value">
+          {{ type.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="standard"
+      color="primary"
+      floatLabel="auto"
+      fxFlex="grow"
+    >
+      <mat-label id="searchLabel">
+        Search
+      </mat-label>
+
+      <input
+        #search
+        aria-labelledby="searchLabel"
+        autocomplete="off"
+        formControlName="searchFormControl"
+        matInput
+        maxlength="100"
+      />
+    </mat-form-field>
+
+    <div>
+      <button type="submit" mat-stroked-button>
+        Search
+      </button>
+    </div>
+  </form>
+
+  <!-- user list display -->
+  <app-user-list [params]="params"></app-user-list>
+</div>
