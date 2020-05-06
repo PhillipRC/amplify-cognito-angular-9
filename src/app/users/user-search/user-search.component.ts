@@ -32,7 +32,7 @@ export class UserSearchComponent implements OnInit {
   public attributes: any[] = [
     {
       value: 'username',
-      label: 'Username'
+      label: 'Username (Unique Id)'
     }, {
       value: 'email',
       label: 'Email'
@@ -40,6 +40,26 @@ export class UserSearchComponent implements OnInit {
     {
       value: 'name',
       label: 'Name'
+    },
+    {
+      value: 'sub',
+      label: 'Sub (Unique Id)'
+    },
+    {
+      value: 'phone_number',
+      label: 'Phone Number'
+    },
+    {
+      value: 'given_name',
+      label: 'Given Name'
+    },
+    {
+      value: 'family_name',
+      label: 'Family Name'
+    },
+    {
+      value: 'preferred_username',
+      label: 'Preferred Name'
     }
   ];
 
