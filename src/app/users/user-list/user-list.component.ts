@@ -47,12 +47,16 @@ export class UserListComponent implements OnDestroy, OnChanges {
    * Get a list of users
    */
   public listUsers() {
-    this.usersServiceSubscription = this.usersService.listUsers(this.params).subscribe(data => {
-      // save data for template
-      this.users = data.Users;
-      // remove loader
+    if (this.params !== null) {
+      this.usersServiceSubscription = this.usersService.listUsers(this.params).subscribe(data => {
+        // save data for template
+        this.users = data.Users;
+        // remove loader
+        this.isLoading = false;
+      });
+    } else {
       this.isLoading = false;
-    });
+    }
   }
 
   /**
