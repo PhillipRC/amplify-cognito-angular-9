@@ -53,6 +53,7 @@
       <tr
         *ngFor="let item of users"
         class="data-row pointer no-select"
+        (keyup.enter)="openItem(item)"
         [routerLink]="['/users/', item.Username]"
       >
         <td class="mat-cell cdk-cell force-wrap">

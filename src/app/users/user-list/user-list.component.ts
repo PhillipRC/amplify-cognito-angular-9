@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
+import { Component, OnDestroy, Input, OnChanges } from '@angular/core';
 import { UsersService } from '../cognito-identity-service-provider.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -33,7 +34,14 @@ export class UserListComponent implements OnDestroy, OnChanges {
   /**
    * On construction injects the needed services
    */
-  constructor(public usersService: UsersService) { }
+  constructor(public usersService: UsersService, private router: Router) { }
+
+  /**
+   * Open an item
+   */
+  public openItem(item: any) {
+    this.router.navigate(['users/' + item.Username]);
+  }
 
   /**
    * Get a list of users
