@@ -11,6 +11,9 @@
 
     <thead role="rowgroup">
       <tr class="mat-header-row cdk-header-row no-select">
+        <th class="mat-header-cell cdk-header-cell" id="user_index">
+          Index
+        </th>
         <th class="mat-header-cell cdk-header-cell" id="user_username">
           Username
         </th>
@@ -51,11 +54,14 @@
 
     <tbody>
       <tr
-        *ngFor="let item of users"
+        *ngFor="let item of users; let index = index"
         class="data-row pointer no-select"
         (keyup.enter)="openItem(item)"
         [routerLink]="['/users/', item.Username]"
       >
+        <td class="mat-cell cdk-cell force-wrap">
+          {{ index + 1 }}
+        </td>
         <td class="mat-cell cdk-cell force-wrap">
           {{ item.Username }}
         </td>
