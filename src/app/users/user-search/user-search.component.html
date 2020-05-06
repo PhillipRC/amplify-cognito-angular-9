@@ -48,6 +48,7 @@
 
       <input
         #search
+        [matAutocomplete]="searchAutocomplete"
         aria-labelledby="searchLabel"
         autocomplete="off"
         formControlName="searchFormControl"
@@ -55,6 +56,11 @@
         maxlength="100"
       />
     </mat-form-field>
+    <mat-autocomplete #searchAutocomplete="matAutocomplete">
+      <mat-option *ngFor="let option of typeOptions" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
 
     <div fxLayout="row" fxLayoutGap="16px">
       <button (click)="clear()" type="button" mat-stroked-button>

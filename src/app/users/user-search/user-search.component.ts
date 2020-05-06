@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 /**
  * Display a user search form with a resulting user list
@@ -9,7 +10,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
   templateUrl: './user-search.component.html',
   styleUrls: ['./user-search.component.scss']
 })
-export class UserSearchComponent implements OnInit {
+export class UserSearchComponent implements OnInit, OnDestroy {
   // reference to set focus on this field
   @ViewChild('search', { static: true })
   search: any;
@@ -26,7 +27,7 @@ export class UserSearchComponent implements OnInit {
   public attributes: any[] = [
     {
       value: 'username',
-      label: 'Username (Unique Id)'
+      label: 'Username'
     }, {
       value: 'email',
       label: 'Email'
@@ -37,7 +38,7 @@ export class UserSearchComponent implements OnInit {
     },
     {
       value: 'sub',
-      label: 'Sub (Unique Id)'
+      label: 'Sub'
     },
     {
       value: 'phone_number',
@@ -59,7 +60,13 @@ export class UserSearchComponent implements OnInit {
       value: 'cognito:user_status',
       label: 'Status',
       options: [
-        'CONFIRMED'
+        'UNCONFIRMED',
+        'CONFIRMED',
+        'ARCHIVED',
+        'COMPROMISED',
+        'UNKNOWN',
+        'RESET_REQUIRED',
+        'FORCE_CHANGE_PASSWORD'
       ]
     },
     {
@@ -92,7 +99,9 @@ export class UserSearchComponent implements OnInit {
     search: '',
     attribute: 'email',
     type: '^='
-  }
+  };
+
+  public typeOptions: any[] = [];
 
   /**
    * Search form
@@ -102,6 +111,25 @@ export class UserSearchComponent implements OnInit {
     attributeFormControl: new FormControl(this.formDefaults.attribute),
     typeFormControl: new FormControl(this.formDefaults.type)
   });
+
+  /**
+   * Reference to later unsubscribe
+   */
+  private attributeSubscription?: Subscription;
+
+  /**
+   * Based on selected attribute return the available options
+   */
+  public setSearchOptions(type: string) {
+    // find the attribute
+    const found = this.attributes.find(element => element.value === type);
+    if (found) {
+      this.typeOptions = found.options;
+      return found.Value;
+    } else {
+      this.typeOptions = [];
+    }
+  }
 
   /**
    * Handle submiting
@@ -145,6 +173,21 @@ export class UserSearchComponent implements OnInit {
     this.search.nativeElement.focus();
     // perform default search
     this.submit();
+    // setup a subscription to update the search options when the attribute updates
+    this.attributeSubscription = this.form.controls.attributeFormControl.valueChanges.subscribe(
+      type => {
+        this.setSearchOptions(type);
+      }
+    );
+  }
+
+  /**
+   * Handle when the component is destroyed
+   */
+  public ngOnDestroy(): void {
+    if (this.attributeSubscription) {
+      this.attributeSubscription.unsubscribe();
+    }
   }
 
 }
