@@ -1,87 +1,98 @@
 <div
-  class="table-wrapper"
+  class="table-wrapper mat-elevation-z2"
   fxFlex="grow"
   ngClass.gt-lg="expand"
   ngClass.gt-md="constrain"
 >
-  <table class="mat-table cdk-table full-width-table hover">
-    <caption class="sr-only">
-      Table of Users
-    </caption>
+  <cdk-virtual-scroll-viewport fxFlex="grow" itemSize="48">
+    <table class="mat-table cdk-table full-width-table hover">
+      <caption class="sr-only">
+        Table of Users
+      </caption>
 
-    <thead role="rowgroup">
-      <tr class="mat-header-row cdk-header-row no-select">
-        <th class="mat-header-cell cdk-header-cell" id="user_index">
-          Index
-        </th>
-        <th class="mat-header-cell cdk-header-cell" id="user_username">
-          Username
-        </th>
-        <th
-          class="mat-header-cell cdk-header-cell"
-          fxShow
-          fxHide.lt-md="true"
-          id="user_useremail"
-        >
-          Email
-        </th>
-        <th
-          class="mat-header-cell cdk-header-cell"
-          fxShow
-          fxHide.lt-md="true"
-          id="user_name"
-        >
-          Name
-        </th>
-        <th
-          class="mat-header-cell cdk-header-cell"
-          fxShow
-          fxHide.lt-md="true"
-          id="user_userstatus"
-        >
-          Status
-        </th>
-        <th
-          class="mat-header-cell cdk-header-cell text-center"
-          fxShow
-          fxHide.lt-md="true"
-          id="user_enabled"
-        >
-          Enabled
-        </th>
-      </tr>
-    </thead>
+      <thead role="rowgroup">
+        <tr class="mat-header-row cdk-header-row no-select">
+          <th class="mat-header-cell cdk-header-cell" id="user_index">
+            Index
+          </th>
+          <th class="mat-header-cell cdk-header-cell" id="user_username">
+            Username
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-md="true"
+            id="user_useremail"
+          >
+            Email
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-md="true"
+            id="user_name"
+          >
+            Name
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-md="true"
+            id="user_userstatus"
+          >
+            Status
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell text-center"
+            fxShow
+            fxHide.lt-md="true"
+            id="user_enabled"
+          >
+            Enabled
+          </th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr
-        *ngFor="let item of users; let index = index"
-        class="data-row pointer no-select"
-        (keyup.enter)="openItem(item)"
-        [routerLink]="['/users/', item.Username]"
-      >
-        <td class="mat-cell cdk-cell force-wrap">
-          {{ index + 1 }}
-        </td>
-        <td class="mat-cell cdk-cell force-wrap">
-          {{ item.Username }}
-        </td>
-        <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-          {{ item | userAttributes: "email" }}
-        </td>
-        <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-          {{ item | userAttributes: "name" }}
-        </td>
-        <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
-          {{ item.UserStatus }}
-        </td>
-        <td class="mat-cell cdk-cell text-center" fxShow fxHide.lt-md="true">
-          <mat-icon *ngIf="item.Enabled" aria-hidden="true" svgIcon="fa-circle">
-          </mat-icon>
-          <span class="sr-only">{{ item.Enabled }}</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody>
+        <ng-container *cdkVirtualFor="let item of users; let index = index">
+          <tr
+            class="data-row pointer no-select"
+            (keyup.enter)="openItem(item)"
+            [routerLink]="['/users/', item.Username]"
+          >
+            <td class="mat-cell cdk-cell force-wrap">
+              {{ index + 1 }}
+            </td>
+            <td class="mat-cell cdk-cell force-wrap">
+              {{ item.Username }}
+            </td>
+            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
+              {{ item | userAttributes: "email" }}
+            </td>
+            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
+              {{ item | userAttributes: "name" }}
+            </td>
+            <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
+              {{ item.UserStatus }}
+            </td>
+            <td
+              class="mat-cell cdk-cell text-center"
+              fxShow
+              fxHide.lt-md="true"
+            >
+              <mat-icon
+                *ngIf="item.Enabled"
+                aria-hidden="true"
+                svgIcon="fa-circle"
+              >
+              </mat-icon>
+              <span class="sr-only">{{ item.Enabled }}</span>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </cdk-virtual-scroll-viewport>
 
   <!-- loader -->
   <app-loader-component *ngIf="isLoading"> </app-loader-component>

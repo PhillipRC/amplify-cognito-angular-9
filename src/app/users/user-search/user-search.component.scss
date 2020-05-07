@@ -1,5 +1,25 @@
 @import "../../../styles/mixins";
 
+// for the host to fill the space
+:host {
+  @include container-host();
+}
+
+.host-container {
+  @include container-host();
+  padding: 16px;
+  .constrain {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .expand {
+    margin: 0;
+  }
+}
+
 .search-form {
   @include card();
   padding-bottom: 4px;

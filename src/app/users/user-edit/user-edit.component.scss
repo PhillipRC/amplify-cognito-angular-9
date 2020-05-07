@@ -1,5 +1,10 @@
 @import "../mixins";
-.user-display {
+// fill the space
+:host {
+  @include container-host();
+}
+.scroll-container {
+  @include container-scroll();
   @include user-display();
   h2 {
     margin-bottom: 16px;

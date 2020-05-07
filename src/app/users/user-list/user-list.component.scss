@@ -1,11 +1,15 @@
+@import "../../../styles/mixins";
 @import "~@angular/material/theming";
-.table-wrapper {
-  @include mat-elevation(1);
-  position: relative;
-  .full-width-table {
-    width: 100%;
-    .text-center {
-      text-align: center;
+:host {
+  @include container-host();
+  .table-wrapper {
+    background-color: #fff;
+    position: relative;
+    .full-width-table {
+      width: 100%;
+      .text-center {
+        text-align: center;
+      }
     }
   }
 }

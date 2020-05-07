@@ -3,7 +3,6 @@
 // for the host to fill the space
 :host {
   @include container-host();
-  flex-grow: 1;
 }
 
 .app-toolbar {

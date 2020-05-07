@@ -1,7 +1,7 @@
 @import "../../styles/mixins";
 @import "~@angular/material/theming";
 
-// for the host to fill the space
+// fill the space
 :host {
   @include container-host();
 }
@@ -13,6 +13,6 @@
   }
 }
 
-.scroll-container {
-  @include container-scroll();
+.container-host {
+  @include container-host();
 }

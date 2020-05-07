@@ -1,12 +1,13 @@
-<div fxLayout="column" fxLayoutGap="16px">
+<div class="host-container" fxFlex="grow" fxLayout="column" fxLayoutGap="16px">
   <form
     [formGroup]="form"
     (ngSubmit)="submit()"
     autocomplete="off"
-    class="search-form"
+    class="search-form mat-elevation-z2"
     fxLayout="row"
     fxLayoutAlign="space-between center"
     fxLayoutGap="16px"
+    ngClass.gt-md="constrain"
     novalidate
   >
     <!-- attribute input -->
@@ -72,6 +73,8 @@
     </div>
   </form>
 
-  <!-- user list display -->
-  <app-user-list [params]="params"></app-user-list>
+  <div fxFlex="grow" ngClass.gt-lg="expand" ngClass.gt-md="constrain">
+    <!-- user list display -->
+    <app-user-list [params]="params" class="mat-elevation-z2"> </app-user-list>
+  </div>
 </div>

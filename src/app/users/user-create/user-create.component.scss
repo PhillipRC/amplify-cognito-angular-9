@@ -1,4 +1,11 @@
 @import "../mixins";
-.user-display {
-  @include user-display();
+// fill the space
+:host {
+  @include container-host();
+}
+.scroll-container {
+  @include container-scroll();
+  .user-display {
+    @include user-display();
+  }
 }

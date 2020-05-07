@@ -1,8 +1,16 @@
-<div class="user-display">
-  <h2 class="mat-display-1 no-select">
-    Edit User
-  </h2>
-  <!-- user form - edit mode -->
-  <app-user-form [focus]="false" [username]="username" class="mat-elevation-z2">
-  </app-user-form>
+<div class="scroll-container">
+  <div class="container" ngClass.gt-md="constrain">
+    <div class="user-display">
+      <h2 class="mat-display-1 no-select">
+        Edit User
+      </h2>
+      <!-- user form - edit mode -->
+      <app-user-form
+        [focus]="false"
+        [username]="username"
+        class="mat-elevation-z2"
+      >
+      </app-user-form>
+    </div>
+  </div>
 </div>
