@@ -10,6 +10,27 @@
       .text-center {
         text-align: center;
       }
+      #user_enabled,
+      #user_index {
+        width: 10%;
+        @media only screen and (min-width: 1920px) {
+          width: 5%;
+        }
+      }
+      #user_username,
+      #user_name,
+      #user_family_name,
+      #user_given_name,
+      #user_sub,
+      #user_preferred_name,
+      #user_phone_number,
+      #user_email,
+      #user_status {
+        width: 20%;
+        @media only screen and (min-width: 1920px) {
+          width: 10%;
+        }
+      }
     }
   }
 }

@@ -15,16 +15,16 @@
           <th class="mat-header-cell cdk-header-cell" id="user_index">
             Index
           </th>
-          <th class="mat-header-cell cdk-header-cell" id="user_username">
-            Username
+          <th class="mat-header-cell cdk-header-cell" id="user_useremail">
+            Email
           </th>
           <th
             class="mat-header-cell cdk-header-cell"
             fxShow
             fxHide.lt-md="true"
-            id="user_useremail"
+            id="user_username"
           >
-            Email
+            Username
           </th>
           <th
             class="mat-header-cell cdk-header-cell"
@@ -33,6 +33,46 @@
             id="user_name"
           >
             Name
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-xl="true"
+            id="user_sub"
+          >
+            Sub
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-xl="true"
+            id="user_phone_number"
+          >
+            Phone Number
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-xl="true"
+            id="user_preferred_name"
+          >
+            Preferred Name
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-xl="true"
+            id="user_given_name"
+          >
+            Given Name
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-xl="true"
+            id="user_family_name"
+          >
+            Family Name
           </th>
           <th
             class="mat-header-cell cdk-header-cell"
@@ -64,13 +104,44 @@
               {{ index + 1 }}
             </td>
             <td class="mat-cell cdk-cell force-wrap">
-              {{ item.Username }}
-            </td>
-            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
               {{ item | userAttributes: "email" }}
             </td>
             <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
+              {{ item.Username }}
+            </td>
+            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
               {{ item | userAttributes: "name" }}
+            </td>
+            <td class="mat-cell cdk-cell user_sub" fxShow fxHide.lt-xl="true">
+              {{ item | userAttributes: "sub" }}
+            </td>
+            <td
+              class="mat-cell cdk-cell user_phone_number"
+              fxShow
+              fxHide.lt-xl="true"
+            >
+              {{ item | userAttributes: "phone_number" }}
+            </td>
+            <td
+              class="mat-cell cdk-cell user_preferred_name"
+              fxShow
+              fxHide.lt-xl="true"
+            >
+              {{ item | userAttributes: "preferred_username" }}
+            </td>
+            <td
+              class="mat-cell cdk-cell user_given_name"
+              fxShow
+              fxHide.lt-xl="true"
+            >
+              {{ item | userAttributes: "given_name" }}
+            </td>
+            <td
+              class="mat-cell cdk-cell user_family_name"
+              fxShow
+              fxHide.lt-xl="true"
+            >
+              {{ item | userAttributes: "family_name" }}
             </td>
             <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
               {{ item.UserStatus }}

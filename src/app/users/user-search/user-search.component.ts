@@ -26,32 +26,34 @@ export class UserSearchComponent implements OnInit, OnDestroy {
    */
   public attributes: any[] = [
     {
-      value: 'username',
-      label: 'Username'
-    }, {
       value: 'email',
       label: 'Email'
     },
     {
-      value: 'name',
-      label: 'Name'
+      value: 'status',
+      label: 'Enabled',
+      options: [
+        'Enabled',
+        'Disabled'
+      ]
     },
     {
-      value: 'sub',
-      label: 'Sub'
-    },
-    {
-      value: 'phone_number',
-      label: 'Phone Number'
+      value: 'family_name',
+      label: 'Family Name'
     },
     {
       value: 'given_name',
       label: 'Given Name'
     },
     {
-      value: 'family_name',
-      label: 'Family Name'
+      value: 'name',
+      label: 'Name'
     },
+    {
+      value: 'phone_number',
+      label: 'Phone Number'
+    },
+
     {
       value: 'preferred_username',
       label: 'Preferred Name'
@@ -70,12 +72,12 @@ export class UserSearchComponent implements OnInit, OnDestroy {
       ]
     },
     {
-      value: 'status',
-      label: 'Enabled',
-      options: [
-        'Enabled',
-        'Disabled'
-      ]
+      value: 'sub',
+      label: 'Sub'
+    },
+    {
+      value: 'username',
+      label: 'Username'
     }
   ];
 

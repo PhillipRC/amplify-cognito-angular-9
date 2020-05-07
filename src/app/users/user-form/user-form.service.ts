@@ -43,6 +43,10 @@ export class UserFormService {
       Validators.minLength(5),
       Validators.maxLength(2048)
     ]),
+    PhoneNumber: new FormControl('',
+      [
+        Validators.pattern(/^\+[1-9]*/)
+      ]),
     Username: new FormControl(this.defaults.Username, [
       Validators.pattern(/^\S*$/),
       Validators.required,
@@ -51,6 +55,9 @@ export class UserFormService {
     ]),
     Enabled: new FormControl(''),
     Name: new FormControl(''),
+    GivenName: new FormControl(''),
+    FamilyName: new FormControl(''),
+    PreferredName: new FormControl(''),
     Sub: new FormControl(''),
     UserCreatedDate: new FormControl(''),
     UserLastModifiedDate: new FormControl('')
@@ -79,7 +86,11 @@ export class UserFormService {
         UserLastModifiedDate: data.UserLastModifiedDate,
         Enabled: data.Enabled,
         Email: this.findValue('email', data.UserAttributes),
+        PhoneNumber: this.findValue('phone_number', data.UserAttributes),
         Name: this.findValue('name', data.UserAttributes),
+        GivenName: this.findValue('given_name', data.UserAttributes),
+        FamilyName: this.findValue('family_name', data.UserAttributes),
+        PreferredName: this.findValue('preferred_username', data.UserAttributes),
         Sub: this.findValue('sub', data.UserAttributes)
       }
     );

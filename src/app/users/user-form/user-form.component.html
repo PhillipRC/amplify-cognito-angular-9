@@ -51,6 +51,25 @@
     </mat-error>
   </mat-form-field>
 
+  <!-- phone number input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="phoneNumberLabel">
+      Phone Number
+    </mat-label>
+
+    <input
+      aria-labelledby="phoneNumberLabel"
+      autocomplete="off"
+      formControlName="PhoneNumber"
+      matInput
+      maxlength="2048"
+    />
+    <!-- validation message for email -->
+    <mat-error>
+      Please enter a valid phone number, example: +12223334444
+    </mat-error>
+  </mat-form-field>
+
   <!-- name input -->
   <mat-form-field appearance="standard" color="primary" floatLabel="auto">
     <mat-label id="nameLabel">
@@ -61,6 +80,51 @@
       aria-labelledby="nameLabel"
       autocomplete="off"
       formControlName="Name"
+      matInput
+      maxlength="2048"
+    />
+  </mat-form-field>
+
+  <!-- given name input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="givenNameLabel">
+      Given Name
+    </mat-label>
+
+    <input
+      aria-labelledby="givenNameLabel"
+      autocomplete="off"
+      formControlName="GivenName"
+      matInput
+      maxlength="2048"
+    />
+  </mat-form-field>
+
+  <!-- family name input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="familyNameLabel">
+      Family Name
+    </mat-label>
+
+    <input
+      aria-labelledby="familyNameLabel"
+      autocomplete="off"
+      formControlName="FamilyName"
+      matInput
+      maxlength="2048"
+    />
+  </mat-form-field>
+
+  <!-- preferred name input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="preferredNameLabel">
+      Preferred Name
+    </mat-label>
+
+    <input
+      aria-labelledby="preferredNameLabel"
+      autocomplete="off"
+      formControlName="PreferredName"
       matInput
       maxlength="2048"
     />

@@ -173,6 +173,22 @@ export class UserFormComponent implements OnChanges, OnDestroy {
         {
           Name: 'name',
           Value: (userData.Name ? userData.Name : '')
+        },
+        {
+          Name: 'given_name',
+          Value: (userData.GivenName ? userData.GivenName : '')
+        },
+        {
+          Name: 'family_name',
+          Value: (userData.FamilyName ? userData.FamilyName : '')
+        },
+        {
+          Name: 'preferred_username',
+          Value: (userData.PreferredName ? userData.PreferredName : '')
+        },
+        {
+          Name: 'phone_number',
+          Value: (userData.PhoneNumber ? userData.PhoneNumber : '')
         }
       ]
     };
