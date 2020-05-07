@@ -42,6 +42,10 @@
       padding-left: 24px;
     }
     padding-right: 24px;
+    .truncate-two-lines {
+      max-height: 32px;
+      overflow: hidden;
+    }
   }
   .mat-header-cell,
   .mat-cell,

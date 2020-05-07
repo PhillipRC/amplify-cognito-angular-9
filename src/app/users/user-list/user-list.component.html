@@ -100,20 +100,28 @@
             (keyup.enter)="openItem(item)"
             [routerLink]="['/users/', item.Username]"
           >
-            <td class="mat-cell cdk-cell force-wrap">
+            <td class="mat-cell cdk-cell">
               {{ index + 1 }}
             </td>
-            <td class="mat-cell cdk-cell force-wrap">
-              {{ item | userAttributes: "email" }}
+            <td class="mat-cell cdk-cell">
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "email" }}
+              </div>
             </td>
-            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-              {{ item.Username }}
+            <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
+              <div class="truncate-two-lines">
+                {{ item.Username }}
+              </div>
             </td>
-            <td class="mat-cell cdk-cell force-wrap" fxShow fxHide.lt-md="true">
-              {{ item | userAttributes: "name" }}
+            <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "name" }}
+              </div>
             </td>
             <td class="mat-cell cdk-cell user_sub" fxShow fxHide.lt-xl="true">
-              {{ item | userAttributes: "sub" }}
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "sub" }}
+              </div>
             </td>
             <td
               class="mat-cell cdk-cell user_phone_number"
@@ -127,21 +135,27 @@
               fxShow
               fxHide.lt-xl="true"
             >
-              {{ item | userAttributes: "preferred_username" }}
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "preferred_username" }}
+              </div>
             </td>
             <td
               class="mat-cell cdk-cell user_given_name"
               fxShow
               fxHide.lt-xl="true"
             >
-              {{ item | userAttributes: "given_name" }}
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "given_name" }}
+              </div>
             </td>
             <td
               class="mat-cell cdk-cell user_family_name"
               fxShow
               fxHide.lt-xl="true"
             >
-              {{ item | userAttributes: "family_name" }}
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "family_name" }}
+              </div>
             </td>
             <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
               {{ item.UserStatus }}
