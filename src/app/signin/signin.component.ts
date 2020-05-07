@@ -125,6 +125,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     this.amplifyService.auth().signIn(user, password)
       .then((cognitoUser: CognitoUser | any) => {
         this.success(cognitoUser);
+        this.cognitoUser = cognitoUser;
       })
       .catch((error: any) => {
         this.failure(error);
@@ -139,11 +140,11 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Change Password
+   * Complete New Password
    */
-  public changePassword(event: Event, oldPassword: string, newPassword: string) {
+  public completeNewPassword(event: Event, newPassword: string) {
     event.preventDefault();
-    this.amplifyService.auth().changePassword(this.currentAuthenticatedUserData, oldPassword, newPassword)
+    this.amplifyService.auth().completeNewPassword(this.cognitoUser, newPassword)
       .then((data: any) => {
         this.success(data);
       })

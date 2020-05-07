@@ -463,19 +463,15 @@
         </code>
         <form
           (submit)="
-            changePassword(
-              $event,
-              oldPasswordInputChangePassword.value,
-              newPasswordInputChangePassword.value
-            )
+            completeNewPassword($event, newPasswordInputChangePassword.value)
           "
         >
           <p>
             This is an optional action unless the user was created by an
-            Administrator, then user must update the password before continuing.
-            The inputs are wired to
+            Administrator, then user must Sign In then update the password
+            before continuing. The inputs are wired to
             <a
-              href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#changepassword"
+              href="https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#completenewpassword"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -484,18 +480,9 @@
           </p>
           <label>
             username
-            <span *ngIf="currentAuthenticatedUserData">
-              {{ currentAuthenticatedUserData.username }}
+            <span *ngIf="cognitoUser">
+              {{ cognitoUser }}
             </span>
-          </label>
-          <label>
-            oldPassword
-            <input
-              #oldPasswordInputChangePassword
-              type="text"
-              value=""
-              name="code"
-            />
           </label>
           <label>
             password
@@ -507,7 +494,7 @@
             />
           </label>
 
-          <button *ngIf="currentAuthenticatedUserData" type="submit">
+          <button *ngIf="cognitoUser" type="submit">
             Change Password
           </button>
         </form>
