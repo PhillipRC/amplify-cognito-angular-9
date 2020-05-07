@@ -198,7 +198,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
       params.UserAttributes.push(
         {
           Name: 'email_verified',
-          Value: 'True'
+          Value: 'false'
         }
       );
       // perform create

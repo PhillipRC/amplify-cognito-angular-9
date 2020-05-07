@@ -7,6 +7,18 @@
     position: relative;
     .full-width-table {
       width: 100%;
+      mat-icon {
+        position: relative;
+        top: 2px;
+      }
+      .multi-cell {
+        align-items: center;
+        display: flex;
+        .verified-cell {
+          flex-shrink: 1;
+          padding-right: 4px;
+        }
+      }
       .text-center {
         text-align: center;
       }

@@ -15,9 +15,6 @@
           <th class="mat-header-cell cdk-header-cell" id="user_index">
             Index
           </th>
-          <th class="mat-header-cell cdk-header-cell" id="user_useremail">
-            Email
-          </th>
           <th
             class="mat-header-cell cdk-header-cell"
             fxShow
@@ -26,21 +23,8 @@
           >
             Username
           </th>
-          <th
-            class="mat-header-cell cdk-header-cell"
-            fxShow
-            fxHide.lt-md="true"
-            id="user_name"
-          >
-            Name
-          </th>
-          <th
-            class="mat-header-cell cdk-header-cell"
-            fxShow
-            fxHide.lt-xl="true"
-            id="user_sub"
-          >
-            Sub
+          <th class="mat-header-cell cdk-header-cell" id="user_useremail">
+            Email
           </th>
           <th
             class="mat-header-cell cdk-header-cell"
@@ -49,6 +33,14 @@
             id="user_phone_number"
           >
             Phone Number
+          </th>
+          <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-md="true"
+            id="user_name"
+          >
+            Name
           </th>
           <th
             class="mat-header-cell cdk-header-cell"
@@ -83,6 +75,14 @@
             Status
           </th>
           <th
+            class="mat-header-cell cdk-header-cell"
+            fxShow
+            fxHide.lt-xl="true"
+            id="user_sub"
+          >
+            Sub
+          </th>
+          <th
             class="mat-header-cell cdk-header-cell text-center"
             fxShow
             fxHide.lt-md="true"
@@ -103,24 +103,27 @@
             <td class="mat-cell cdk-cell">
               {{ index + 1 }}
             </td>
-            <td class="mat-cell cdk-cell">
-              <div class="truncate-two-lines">
-                {{ item | userAttributes: "email" }}
-              </div>
-            </td>
             <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
               <div class="truncate-two-lines">
                 {{ item.Username }}
               </div>
             </td>
-            <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
-              <div class="truncate-two-lines">
-                {{ item | userAttributes: "name" }}
-              </div>
-            </td>
-            <td class="mat-cell cdk-cell user_sub" fxShow fxHide.lt-xl="true">
-              <div class="truncate-two-lines">
-                {{ item | userAttributes: "sub" }}
+            <td class="mat-cell cdk-cell">
+              <div class="multi-cell">
+                <div
+                  *ngIf="(item | userAttributes: 'email_verified') === 'false'"
+                  class="verified-cell"
+                >
+                  <mat-icon
+                    class="warn"
+                    svgIcon="fa-times-circle-o"
+                    title="Not Verified"
+                  >
+                  </mat-icon>
+                </div>
+                <div class="truncate-two-lines">
+                  {{ item | userAttributes: "email" }}
+                </div>
               </div>
             </td>
             <td
@@ -128,7 +131,29 @@
               fxShow
               fxHide.lt-xl="true"
             >
-              {{ item | userAttributes: "phone_number" }}
+              <div class="multi-cell">
+                <div
+                  *ngIf="
+                    (item | userAttributes: 'phone_number_verified') === 'false'
+                  "
+                  class="verified-cell"
+                >
+                  <mat-icon
+                    class="warn"
+                    svgIcon="fa-times-circle-o"
+                    title="Not Verified"
+                  >
+                  </mat-icon>
+                </div>
+                <div class="truncate-two-lines">
+                  {{ item | userAttributes: "phone_number" }}
+                </div>
+              </div>
+            </td>
+            <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "name" }}
+              </div>
             </td>
             <td
               class="mat-cell cdk-cell user_preferred_name"
@@ -160,6 +185,11 @@
             <td class="mat-cell cdk-cell" fxShow fxHide.lt-md="true">
               {{ item.UserStatus }}
             </td>
+            <td class="mat-cell cdk-cell user_sub" fxShow fxHide.lt-xl="true">
+              <div class="truncate-two-lines">
+                {{ item | userAttributes: "sub" }}
+              </div>
+            </td>
             <td
               class="mat-cell cdk-cell text-center"
               fxShow
@@ -167,8 +197,9 @@
             >
               <mat-icon
                 *ngIf="item.Enabled"
-                aria-hidden="true"
+                class="primary"
                 svgIcon="fa-circle"
+                title="Enabled"
               >
               </mat-icon>
               <span class="sr-only">{{ item.Enabled }}</span>

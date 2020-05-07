@@ -85,6 +85,21 @@
     />
   </mat-form-field>
 
+  <!-- preferred name input -->
+  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+    <mat-label id="preferredNameLabel">
+      Preferred Name
+    </mat-label>
+
+    <input
+      aria-labelledby="preferredNameLabel"
+      autocomplete="off"
+      formControlName="PreferredName"
+      matInput
+      maxlength="2048"
+    />
+  </mat-form-field>
+
   <!-- given name input -->
   <mat-form-field appearance="standard" color="primary" floatLabel="auto">
     <mat-label id="givenNameLabel">
@@ -115,81 +130,6 @@
     />
   </mat-form-field>
 
-  <!-- preferred name input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
-    <mat-label id="preferredNameLabel">
-      Preferred Name
-    </mat-label>
-
-    <input
-      aria-labelledby="preferredNameLabel"
-      autocomplete="off"
-      formControlName="PreferredName"
-      matInput
-      maxlength="2048"
-    />
-  </mat-form-field>
-
-  <!-- sub display -->
-  <mat-form-field
-    *ngIf="userFormService.mode !== UserFormMode.create"
-    appearance="standard"
-    color="primary"
-    floatLabel="auto"
-  >
-    <mat-label id="subLabel">
-      Sub
-    </mat-label>
-
-    <input
-      [readonly]="true"
-      aria-labelledby="subLabel"
-      autocomplete="off"
-      formControlName="Sub"
-      matInput
-    />
-  </mat-form-field>
-
-  <!-- created date -->
-  <mat-form-field
-    *ngIf="userFormService.mode !== UserFormMode.create"
-    appearance="standard"
-    color="primary"
-    floatLabel="auto"
-  >
-    <mat-label id="createdLabel">
-      Created
-    </mat-label>
-
-    <input
-      [readonly]="true"
-      aria-labelledby="createdLabel"
-      autocomplete="off"
-      formControlName="UserCreatedDate"
-      matInput
-    />
-  </mat-form-field>
-
-  <!-- last modified date -->
-  <mat-form-field
-    *ngIf="userFormService.mode !== UserFormMode.create"
-    appearance="standard"
-    color="primary"
-    floatLabel="auto"
-  >
-    <mat-label id="lastModifiedLabel">
-      Last Modified
-    </mat-label>
-
-    <input
-      [readonly]="true"
-      aria-labelledby="lastModifiedLabel"
-      autocomplete="off"
-      formControlName="UserLastModifiedDate"
-      matInput
-    />
-  </mat-form-field>
-
   <!-- enabled option -->
   <div *ngIf="userFormService.mode !== UserFormMode.create">
     <mat-slide-toggle
@@ -199,6 +139,25 @@
     >
       Enabled
     </mat-slide-toggle>
+  </div>
+
+  <!-- information bar -->
+  <div class="information-bar" fxLayout="column" fxLayoutGap="8px">
+    <div>
+      Sub:
+      <input type="hidden" formControlName="Sub" />
+      {{ this.userFormService.form.getRawValue().Sub }}
+    </div>
+    <div>
+      Created:
+      <input type="hidden" formControlName="UserCreatedDate" />
+      {{ this.userFormService.form.getRawValue().UserCreatedDate }}
+    </div>
+    <div>
+      Last Modified:
+      <input type="hidden" formControlName="UserLastModifiedDate" />
+      {{ this.userFormService.form.getRawValue().UserLastModifiedDate }}
+    </div>
   </div>
 
   <!-- action bar -->
