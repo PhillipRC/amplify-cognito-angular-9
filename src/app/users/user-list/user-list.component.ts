@@ -37,6 +37,15 @@ export class UserListComponent implements OnDestroy, OnChanges {
   constructor(public usersService: UsersService, private router: Router) { }
 
   /**
+   * Removes service subscriptions
+   */
+  private unsubscribe() {
+    if (this.usersServiceSubscription) {
+      this.usersServiceSubscription.unsubscribe();
+    }
+  }
+
+  /**
    * Open an item
    */
   public openItem(item: any) {
@@ -48,12 +57,28 @@ export class UserListComponent implements OnDestroy, OnChanges {
    */
   public listUsers() {
     if (this.params !== null) {
-      this.usersServiceSubscription = this.usersService.listUsers(this.params).subscribe(data => {
-        // save data for template
-        this.users = data.Users;
-        // remove loader
-        this.isLoading = false;
-      });
+      // unsubscribe from previous subscription
+      this.unsubscribe();
+      // handle a group_name search vs a user search
+      if (this.params.Filter.startsWith('group_name')) {
+        // listUsersInGroup has same return as listUsers takes a GroupName input parameter
+        const groupParams = {
+          GroupName: this.params.Filter.match(/"(.*?)"/)[1]
+        };
+        this.usersServiceSubscription = this.usersService.listUsersInGroup(groupParams).subscribe(data => {
+          // save data for template
+          this.users = data.Users;
+          // remove loader
+          this.isLoading = false;
+        });
+      } else {
+        this.usersServiceSubscription = this.usersService.listUsers(this.params).subscribe(data => {
+          // save data for template
+          this.users = data.Users;
+          // remove loader
+          this.isLoading = false;
+        });
+      }
     } else {
       this.isLoading = false;
     }
@@ -72,9 +97,7 @@ export class UserListComponent implements OnDestroy, OnChanges {
    * Removes any observer subscriptions that were created
    */
   public ngOnDestroy() {
-    if (this.usersServiceSubscription) {
-      this.usersServiceSubscription.unsubscribe();
-    }
+    this.unsubscribe();
   }
 
 }

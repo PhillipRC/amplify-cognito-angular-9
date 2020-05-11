@@ -29,15 +29,21 @@
       </mat-select>
     </mat-form-field>
 
-    <!-- type input -->
+    <!-- comparitor input -->
     <mat-form-field color="primary">
-      <mat-label id="typeLabel">
+      <mat-label id="comparitorLabel">
         Comparator
       </mat-label>
 
-      <mat-select aria-labelledby="typeLabel" formControlName="typeFormControl">
-        <mat-option *ngFor="let type of types" [value]="type.value">
-          {{ type.label }}
+      <mat-select
+        aria-labelledby="comparitorLabel"
+        formControlName="comparitorFormControl"
+      >
+        <mat-option
+          *ngFor="let comparitor of comparators"
+          [value]="comparitor.value"
+        >
+          {{ comparitor.label }}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -29,8 +29,14 @@ export class UsersService {
       value: 'status',
       label: 'Enabled',
       options: [
-        'Enabled',
-        'Disabled'
+        {
+          label: 'Enabled',
+          value: 'Enabled'
+        },
+        {
+          label: 'Disabled',
+          value: 'Disabled'
+        }
       ]
     },
     {
@@ -213,6 +219,50 @@ export class UsersService {
    */
   public adminDeleteUser(params?: any) {
     return this.providerObservable('adminDeleteUser', params);
+  }
+
+  /**
+   * ListUsersInGroup
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsersInGroup-property
+   */
+  public listUsersInGroup(params?: any) {
+    return this.providerObservable('listUsersInGroup', params);
+  }
+
+  /**
+   * ListGroups
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listGroups-property
+   */
+  public listGroups(params?: any) {
+    return this.providerObservable('listGroups', params);
+  }
+
+  /**
+   * Update the metaData with the list of groups
+   */
+  public updateGroups() {
+    this.listGroups().subscribe(data => {
+      // if there are groups add them to the metaData
+      if (data.Groups.length) {
+        // setup attribute
+        const groupName: any = {
+          value: 'group_name',
+          label: 'Group',
+          options: []
+        };
+        // setup options in attribute
+        data.Groups.forEach((group: { GroupName: any, Description: any }) => {
+          groupName.options.push(
+            {
+              // add description to label if present
+              label: group.GroupName + (group.Description ? ' (' + group.Description + ')' : ''),
+              value: group.GroupName
+            }
+          );
+        });
+        this.metaData.push(groupName);
+      }
+    });
   }
 
 }

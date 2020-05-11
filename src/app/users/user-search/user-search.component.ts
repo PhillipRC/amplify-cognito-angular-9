@@ -24,7 +24,7 @@ export class UserSearchComponent implements OnInit, OnDestroy {
   /**
    * Types of searchs available
    */
-  public types: any[] = [
+  public comparators: any[] = [
     {
       value: '=',
       label: 'Equals'
@@ -33,6 +33,8 @@ export class UserSearchComponent implements OnInit, OnDestroy {
       label: 'Starts with'
     }
   ];
+
+  public comparitorEnabled = true;
 
   /**
    * Default search parameters
@@ -51,7 +53,7 @@ export class UserSearchComponent implements OnInit, OnDestroy {
   public form: FormGroup = new FormBuilder().group({
     searchFormControl: new FormControl(this.formDefaults.search),
     attributeFormControl: new FormControl(this.formDefaults.attribute),
-    typeFormControl: new FormControl(this.formDefaults.type)
+    comparitorFormControl: new FormControl(this.formDefaults.type)
   });
 
   /**
@@ -66,9 +68,16 @@ export class UserSearchComponent implements OnInit, OnDestroy {
     // find the attribute
     const found = this.userService.metaData.find(element => element.value === type);
     if (found) {
+      // group_name can only do equals - disable the starts with option
+      if (found.value === 'group_name') {
+        this.form.controls.comparitorFormControl.disable();
+      } else {
+        this.form.controls.comparitorFormControl.enable();
+      }
       this.typeOptions = found.options;
       return found.Value;
     } else {
+      this.form.controls.comparitorFormControl.enable();
       this.typeOptions = [];
     }
   }
@@ -81,7 +90,7 @@ export class UserSearchComponent implements OnInit, OnDestroy {
     const searchData = this.form.getRawValue();
     const filter = searchData.attributeFormControl +
       ' ' +
-      searchData.typeFormControl +
+      searchData.comparitorFormControl +
       ' ' +
       '\"' +
       searchData.searchFormControl +
@@ -101,7 +110,7 @@ export class UserSearchComponent implements OnInit, OnDestroy {
       {
         searchFormControl: this.formDefaults.search,
         attributeFormControl: this.formDefaults.attribute,
-        typeFormControl: this.formDefaults.type
+        comparitorFormControl: this.formDefaults.type
       }
     );
     this.submit();
@@ -125,6 +134,9 @@ export class UserSearchComponent implements OnInit, OnDestroy {
         this.setSearchOptions(type);
       }
     );
+    // load list of groups
+    this.userService.updateGroups();
+
   }
 
   /**
