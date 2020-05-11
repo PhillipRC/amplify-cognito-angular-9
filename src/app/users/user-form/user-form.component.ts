@@ -195,12 +195,6 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     if (this.userFormService.mode === UserFormMode.create) {
       // add verification
       params.DesiredDeliveryMediums = ['EMAIL'];
-      params.UserAttributes.push(
-        {
-          Name: 'email_verified',
-          Value: 'false'
-        }
-      );
       // perform create
       this.userSubscription = this.userService.adminCreateUser(params).subscribe(data => {
         // take user to the user list

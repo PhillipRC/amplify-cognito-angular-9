@@ -6,7 +6,7 @@
   novalidate
 >
   <!-- username input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+  <mat-form-field color="primary" floatLabel="auto">
     <mat-label id="usernameLabel">
       Username
     </mat-label>
@@ -29,7 +29,7 @@
   </mat-form-field>
 
   <!-- email input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+  <mat-form-field color="primary" floatLabel="auto">
     <mat-label id="emailLabel">
       Email
     </mat-label>
@@ -52,7 +52,7 @@
   </mat-form-field>
 
   <!-- phone number input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+  <mat-form-field color="primary" floatLabel="auto">
     <mat-label id="phoneNumberLabel">
       Phone Number
     </mat-label>
@@ -71,7 +71,7 @@
   </mat-form-field>
 
   <!-- name input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+  <mat-form-field color="primary" floatLabel="auto">
     <mat-label id="nameLabel">
       Name
     </mat-label>
@@ -86,7 +86,7 @@
   </mat-form-field>
 
   <!-- preferred name input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+  <mat-form-field color="primary" floatLabel="auto">
     <mat-label id="preferredNameLabel">
       Preferred Name
     </mat-label>
@@ -101,7 +101,7 @@
   </mat-form-field>
 
   <!-- given name input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+  <mat-form-field color="primary" floatLabel="auto">
     <mat-label id="givenNameLabel">
       Given Name
     </mat-label>
@@ -116,7 +116,7 @@
   </mat-form-field>
 
   <!-- family name input -->
-  <mat-form-field appearance="standard" color="primary" floatLabel="auto">
+  <mat-form-field color="primary" floatLabel="auto">
     <mat-label id="familyNameLabel">
       Family Name
     </mat-label>
@@ -142,19 +142,24 @@
   </div>
 
   <!-- information bar -->
-  <div class="information-bar" fxLayout="column" fxLayoutGap="8px">
+  <div
+    *ngIf="userFormService.mode !== UserFormMode.create"
+    class="information-bar"
+    fxLayout="column"
+    fxLayoutGap="8px"
+  >
     <div>
-      Sub:
+      <span>Sub</span>
       <input type="hidden" formControlName="Sub" />
       {{ this.userFormService.form.getRawValue().Sub }}
     </div>
     <div>
-      Created:
+      <span>Created</span>
       <input type="hidden" formControlName="UserCreatedDate" />
       {{ this.userFormService.form.getRawValue().UserCreatedDate }}
     </div>
     <div>
-      Last Modified:
+      <span>Last Modified</span>
       <input type="hidden" formControlName="UserLastModifiedDate" />
       {{ this.userFormService.form.getRawValue().UserLastModifiedDate }}
     </div>

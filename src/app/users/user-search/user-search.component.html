@@ -21,7 +21,7 @@
         formControlName="attributeFormControl"
       >
         <mat-option
-          *ngFor="let attribute of attributes"
+          *ngFor="let attribute of userService.metaData"
           [value]="attribute.value"
         >
           {{ attribute.label }}
@@ -58,8 +58,8 @@
       />
     </mat-form-field>
     <mat-autocomplete #searchAutocomplete="matAutocomplete">
-      <mat-option *ngFor="let option of typeOptions" [value]="option">
-        {{ option }}
+      <mat-option *ngFor="let option of typeOptions" [value]="option.value">
+        {{ option.label }}
       </mat-option>
     </mat-autocomplete>
 

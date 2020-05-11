@@ -18,6 +18,87 @@ export class UsersService {
   private userPoolId: string;
 
   /**
+   * User attributes meta data
+   */
+  public metaData: any[] = [
+    {
+      value: 'email',
+      label: 'Email'
+    },
+    {
+      value: 'status',
+      label: 'Enabled',
+      options: [
+        'Enabled',
+        'Disabled'
+      ]
+    },
+    {
+      value: 'family_name',
+      label: 'Family Name'
+    },
+    {
+      value: 'given_name',
+      label: 'Given Name'
+    },
+    {
+      value: 'name',
+      label: 'Name'
+    },
+    {
+      value: 'phone_number',
+      label: 'Phone Number'
+    },
+
+    {
+      value: 'preferred_username',
+      label: 'Preferred Name'
+    },
+    {
+      value: 'cognito:user_status',
+      label: 'Status',
+      options: [
+        {
+          label: 'Archived',
+          value: 'ARCHIVED'
+        },
+        {
+          label: 'Compromised',
+          value: 'COMPROMISED'
+        },
+        {
+          label: 'Confirmed',
+          value: 'CONFIRMED'
+        },
+        {
+          label: 'Force Change Password',
+          value: 'FORCE_CHANGE_PASSWORD'
+        },
+        {
+          label: 'Reset Required',
+          value: 'RESET_REQUIRED'
+        },
+        {
+          label: 'Unconfirmed',
+          value: 'UNCONFIRMED'
+        },
+        {
+          label: 'Unknown',
+          value: 'UNKNOWN'
+        }
+      ]
+    },
+    {
+      value: 'sub',
+      label: 'Sub'
+    },
+    {
+      value: 'username',
+      label: 'Username'
+    }
+  ];
+
+  /**
    * On construction injects the needed services
    */
   constructor(private amplifyConfiguration: AmplifyConfigurationService) {
