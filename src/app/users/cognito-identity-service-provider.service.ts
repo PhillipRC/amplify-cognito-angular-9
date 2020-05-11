@@ -109,6 +109,17 @@ export class UsersService {
    */
   constructor(private amplifyConfiguration: AmplifyConfigurationService) {
     this.userPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
+    // sort the attributes
+    this.metaData.sort(this.attributeSort);
+  }
+
+  /**
+   * Provide sorting for the attributes by label
+   */
+  private attributeSort(attribA: any, attribB: any) {
+    if (attribA.label < attribB.label) { return -1; }
+    if (attribA.label > attribB.label) { return 1; }
+    return 0;
   }
 
   /**
@@ -244,13 +255,17 @@ export class UsersService {
     this.listGroups().subscribe(data => {
       // if there are groups add them to the metaData
       if (data.Groups.length) {
-        // setup attribute
+        // remove previously added group_name attribute
+        this.metaData = this.metaData.filter(attrib => {
+          return attrib.value !== 'group_name';
+        });
+        // set group_name attribute
         const groupName: any = {
           value: 'group_name',
           label: 'Group',
           options: []
         };
-        // setup options in attribute
+        // set group_name attribute options
         data.Groups.forEach((group: { GroupName: any, Description: any }) => {
           groupName.options.push(
             {
@@ -261,6 +276,8 @@ export class UsersService {
           );
         });
         this.metaData.push(groupName);
+        // sort the attributes by label
+        this.metaData.sort(this.attributeSort);
       }
     });
   }
