@@ -10,6 +10,14 @@
 .action-bar,
 .information-bar {
   margin-top: 16px;
+  .static-display {
+    display: flex;
+    flex-direction: column;
+    span {
+      font-size: 12px;
+      padding-bottom: 8px;
+    }
+  }
 }
 
 .information-bar {

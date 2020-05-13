@@ -152,19 +152,19 @@
         *ngIf="userFormService.mode !== UserFormMode.create"
         class="information-bar"
         fxLayout="column"
-        fxLayoutGap="8px"
+        fxLayoutGap="16px"
       >
-        <div>
+        <div class="static-display">
           <span>Sub</span>
           <input type="hidden" formControlName="Sub" />
           {{ this.userFormService.form.getRawValue().Sub }}
         </div>
-        <div>
+        <div class="static-display">
           <span>Created</span>
           <input type="hidden" formControlName="UserCreatedDate" />
           {{ this.userFormService.form.getRawValue().UserCreatedDate }}
         </div>
-        <div>
+        <div class="static-display">
           <span>Last Modified</span>
           <input type="hidden" formControlName="UserLastModifiedDate" />
           {{ this.userFormService.form.getRawValue().UserLastModifiedDate }}
