@@ -1,5 +1,11 @@
+@import "../../../styles/mixins";
+
 :host {
   position: relative;
+}
+
+.attributes-container {
+  @include card();
 }
 .action-bar,
 .information-bar {

@@ -116,6 +116,9 @@ export class UserSearchComponent implements OnInit, OnDestroy {
     this.submit();
   }
 
+  /**
+   * On construction injects the needed services
+   */
   constructor(public userService: UsersService) { }
 
   /**
@@ -136,7 +139,6 @@ export class UserSearchComponent implements OnInit, OnDestroy {
     );
     // load list of groups
     this.userService.updateGroups();
-
   }
 
   /**

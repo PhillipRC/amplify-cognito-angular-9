@@ -5,198 +5,215 @@
   fxLayout="column"
   novalidate
 >
-  <!-- username input -->
-  <mat-form-field color="primary" floatLabel="auto">
-    <mat-label id="usernameLabel">
-      Username
-    </mat-label>
-
-    <input
-      #usernameinput
-      [readonly]="userFormService.mode !== UserFormMode.create"
-      aria-labelledby="usernameLabel"
-      autocomplete="off"
-      formControlName="Username"
-      matInput
-      maxlength="128"
-      required
-    />
-
-    <!-- validation  -->
-    <mat-error>
-      Please enter a value without spaces
-    </mat-error>
-  </mat-form-field>
-
-  <!-- email input -->
-  <mat-form-field color="primary" floatLabel="auto">
-    <mat-label id="emailLabel">
-      Email
-    </mat-label>
-
-    <input
-      [readonly]="userFormService.mode === UserFormMode.readonly"
-      aria-labelledby="emailLabel"
-      autocomplete="off"
-      formControlName="Email"
-      matInput
-      maxlength="2048"
-      required
-      type="email"
-    />
-
-    <!-- validation message for email -->
-    <mat-error>
-      Please enter an email address
-    </mat-error>
-  </mat-form-field>
-
-  <!-- phone number input -->
-  <mat-form-field color="primary" floatLabel="auto">
-    <mat-label id="phoneNumberLabel">
-      Phone Number
-    </mat-label>
-
-    <input
-      aria-labelledby="phoneNumberLabel"
-      autocomplete="off"
-      formControlName="PhoneNumber"
-      matInput
-      maxlength="2048"
-    />
-    <!-- validation message for email -->
-    <mat-error>
-      Please enter a valid phone number, example: +12223334444
-    </mat-error>
-  </mat-form-field>
-
-  <!-- name input -->
-  <mat-form-field color="primary" floatLabel="auto">
-    <mat-label id="nameLabel">
-      Name
-    </mat-label>
-
-    <input
-      aria-labelledby="nameLabel"
-      autocomplete="off"
-      formControlName="Name"
-      matInput
-      maxlength="2048"
-    />
-  </mat-form-field>
-
-  <!-- preferred name input -->
-  <mat-form-field color="primary" floatLabel="auto">
-    <mat-label id="preferredNameLabel">
-      Preferred Name
-    </mat-label>
-
-    <input
-      aria-labelledby="preferredNameLabel"
-      autocomplete="off"
-      formControlName="PreferredName"
-      matInput
-      maxlength="2048"
-    />
-  </mat-form-field>
-
-  <!-- given name input -->
-  <mat-form-field color="primary" floatLabel="auto">
-    <mat-label id="givenNameLabel">
-      Given Name
-    </mat-label>
-
-    <input
-      aria-labelledby="givenNameLabel"
-      autocomplete="off"
-      formControlName="GivenName"
-      matInput
-      maxlength="2048"
-    />
-  </mat-form-field>
-
-  <!-- family name input -->
-  <mat-form-field color="primary" floatLabel="auto">
-    <mat-label id="familyNameLabel">
-      Family Name
-    </mat-label>
-
-    <input
-      aria-labelledby="familyNameLabel"
-      autocomplete="off"
-      formControlName="FamilyName"
-      matInput
-      maxlength="2048"
-    />
-  </mat-form-field>
-
-  <!-- enabled option -->
-  <div *ngIf="userFormService.mode !== UserFormMode.create">
-    <mat-slide-toggle
-      color="primary"
-      checked="{{ this.userFormService.form.getRawValue().Enabled }}"
-      (toggleChange)="enableToggle()"
+  <div fxLayout="row" fxLayoutGap="16px" fxLayout.lt-md="column">
+    <div
+      class="attributes-container mat-elevation-z2"
+      fxLayout="column"
+      fxFlex="50%"
     >
-      Enabled
-    </mat-slide-toggle>
-  </div>
+      <!-- username input -->
+      <mat-form-field color="primary" floatLabel="auto">
+        <mat-label id="usernameLabel">
+          Username
+        </mat-label>
 
-  <!-- information bar -->
-  <div
-    *ngIf="userFormService.mode !== UserFormMode.create"
-    class="information-bar"
-    fxLayout="column"
-    fxLayoutGap="8px"
-  >
-    <div>
-      <span>Sub</span>
-      <input type="hidden" formControlName="Sub" />
-      {{ this.userFormService.form.getRawValue().Sub }}
-    </div>
-    <div>
-      <span>Created</span>
-      <input type="hidden" formControlName="UserCreatedDate" />
-      {{ this.userFormService.form.getRawValue().UserCreatedDate }}
-    </div>
-    <div>
-      <span>Last Modified</span>
-      <input type="hidden" formControlName="UserLastModifiedDate" />
-      {{ this.userFormService.form.getRawValue().UserLastModifiedDate }}
-    </div>
-  </div>
+        <input
+          #usernameinput
+          [readonly]="userFormService.mode !== UserFormMode.create"
+          aria-labelledby="usernameLabel"
+          autocomplete="off"
+          formControlName="Username"
+          matInput
+          maxlength="128"
+          required
+        />
 
-  <!-- action bar -->
-  <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between">
-    <div fxLayout="row" fxLayoutGap="16px">
-      <!-- back option -->
-      <button (click)="back()" mat-stroked-button type="button">
-        Back
-      </button>
-      <!-- delete option -->
-      <button
+        <!-- validation  -->
+        <mat-error>
+          Please enter a value without spaces
+        </mat-error>
+      </mat-form-field>
+
+      <!-- email input -->
+      <mat-form-field color="primary" floatLabel="auto">
+        <mat-label id="emailLabel">
+          Email
+        </mat-label>
+
+        <input
+          [readonly]="userFormService.mode === UserFormMode.readonly"
+          aria-labelledby="emailLabel"
+          autocomplete="off"
+          formControlName="Email"
+          matInput
+          maxlength="2048"
+          required
+          type="email"
+        />
+
+        <!-- validation message for email -->
+        <mat-error>
+          Please enter an email address
+        </mat-error>
+      </mat-form-field>
+
+      <!-- phone number input -->
+      <mat-form-field color="primary" floatLabel="auto">
+        <mat-label id="phoneNumberLabel">
+          Phone Number
+        </mat-label>
+
+        <input
+          aria-labelledby="phoneNumberLabel"
+          autocomplete="off"
+          formControlName="PhoneNumber"
+          matInput
+          maxlength="2048"
+        />
+        <!-- validation message for email -->
+        <mat-error>
+          Please enter a valid phone number, example: +12223334444
+        </mat-error>
+      </mat-form-field>
+
+      <!-- name input -->
+      <mat-form-field color="primary" floatLabel="auto">
+        <mat-label id="nameLabel">
+          Name
+        </mat-label>
+
+        <input
+          aria-labelledby="nameLabel"
+          autocomplete="off"
+          formControlName="Name"
+          matInput
+          maxlength="2048"
+        />
+      </mat-form-field>
+
+      <!-- preferred name input -->
+      <mat-form-field color="primary" floatLabel="auto">
+        <mat-label id="preferredNameLabel">
+          Preferred Name
+        </mat-label>
+
+        <input
+          aria-labelledby="preferredNameLabel"
+          autocomplete="off"
+          formControlName="PreferredName"
+          matInput
+          maxlength="2048"
+        />
+      </mat-form-field>
+
+      <!-- given name input -->
+      <mat-form-field color="primary" floatLabel="auto">
+        <mat-label id="givenNameLabel">
+          Given Name
+        </mat-label>
+
+        <input
+          aria-labelledby="givenNameLabel"
+          autocomplete="off"
+          formControlName="GivenName"
+          matInput
+          maxlength="2048"
+        />
+      </mat-form-field>
+
+      <!-- family name input -->
+      <mat-form-field color="primary" floatLabel="auto">
+        <mat-label id="familyNameLabel">
+          Family Name
+        </mat-label>
+
+        <input
+          aria-labelledby="familyNameLabel"
+          autocomplete="off"
+          formControlName="FamilyName"
+          matInput
+          maxlength="2048"
+        />
+      </mat-form-field>
+
+      <!-- enabled option -->
+      <div *ngIf="userFormService.mode !== UserFormMode.create">
+        <mat-slide-toggle
+          color="primary"
+          checked="{{ this.userFormService.form.getRawValue().Enabled }}"
+          (toggleChange)="enableToggle()"
+        >
+          Enabled
+        </mat-slide-toggle>
+      </div>
+
+      <!-- information bar -->
+      <div
         *ngIf="userFormService.mode !== UserFormMode.create"
-        (click)="deleteUser()"
-        mat-stroked-button
-        color="warn"
-        type="button"
+        class="information-bar"
+        fxLayout="column"
+        fxLayoutGap="8px"
       >
-        Delete
-      </button>
+        <div>
+          <span>Sub</span>
+          <input type="hidden" formControlName="Sub" />
+          {{ this.userFormService.form.getRawValue().Sub }}
+        </div>
+        <div>
+          <span>Created</span>
+          <input type="hidden" formControlName="UserCreatedDate" />
+          {{ this.userFormService.form.getRawValue().UserCreatedDate }}
+        </div>
+        <div>
+          <span>Last Modified</span>
+          <input type="hidden" formControlName="UserLastModifiedDate" />
+          {{ this.userFormService.form.getRawValue().UserLastModifiedDate }}
+        </div>
+      </div>
+      <!-- action bar -->
+      <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between">
+        <div fxLayout="row" fxLayoutGap="16px">
+          <!-- delete option -->
+          <button
+            *ngIf="userFormService.mode !== UserFormMode.create"
+            (click)="deleteUser()"
+            mat-stroked-button
+            color="warn"
+            type="button"
+          >
+            Delete
+          </button>
+          <!-- back option -->
+          <button (click)="back()" mat-stroked-button type="button">
+            Back
+          </button>
+        </div>
+
+        <!-- create/update option -->
+        <!-- ony show the option if not in readonly mode-->
+        <!-- disable the option if the form is invalid or untouched -->
+        <button
+          *ngIf="userFormService.mode !== UserFormMode.readonly"
+          color="primary"
+          [disabled]="
+            userFormService.form.invalid || userFormService.form.pristine
+          "
+          mat-raised-button
+          type="submit"
+        >
+          <!-- change the label based upon the mode-->
+          {{ userFormService.mode === UserFormMode.create ? "Add" : "Update" }}
+        </button>
+      </div>
     </div>
 
-    <!-- create/update option -->
-    <!-- ony show the option if not in readonly mode-->
-    <!-- disable the option if the form is invalid or untouched -->
-    <button
-      *ngIf="userFormService.mode !== UserFormMode.readonly"
-      color="primary"
-      [disabled]="userFormService.form.invalid || userFormService.form.pristine"
-      mat-raised-button
-      type="submit"
+    <!-- groups -->
+    <app-user-groups
+      *ngIf="userFormService.mode !== UserFormMode.create"
+      fxFlex="50%"
+      [username]="username"
     >
-      <!-- change the label based upon the mode-->
-      {{ userFormService.mode === UserFormMode.create ? "Add" : "Update" }}
-    </button>
+    </app-user-groups>
   </div>
 </form>
 

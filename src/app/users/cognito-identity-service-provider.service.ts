@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { defer } from 'rxjs';
+import { defer, BehaviorSubject } from 'rxjs';
 import Auth from '@aws-amplify/auth';
 import { AmplifyConfigurationService } from '../setup/amplify-configuration.service';
 // AWS global namespace
@@ -15,10 +15,13 @@ const CognitoIdentityServiceProvider = require('aws-sdk/clients/cognitoidentitys
 })
 export class UsersService {
 
+  /**
+   * Reference to the cognito userPoolId
+   */
   private userPoolId: string;
 
   /**
-   * User attributes meta data
+   * Meta data for the various user attributes
    */
   public metaData: any[] = [
     {
@@ -105,21 +108,41 @@ export class UsersService {
   ];
 
   /**
+   * Track the available groups loaded from the API into the metaData
+   */
+  private groupOptionsSubject = new BehaviorSubject<any>(null);
+
+  /**
+   * Enabled other components to observe changes in the groupOptions
+   */
+  public groupOptions = this.groupOptionsSubject.asObservable();
+
+  /**
    * On construction injects the needed services
    */
   constructor(private amplifyConfiguration: AmplifyConfigurationService) {
+    // load userPoolId
     this.userPoolId = this.amplifyConfiguration.configurationObj.userPoolId;
     // sort the attributes
     this.metaData.sort(this.attributeSort);
   }
 
   /**
-   * Provide sorting for the attributes by label
+   * Provide a function to sort the metaData attributes by label
    */
   private attributeSort(attribA: any, attribB: any) {
     if (attribA.label < attribB.label) { return -1; }
     if (attribA.label > attribB.label) { return 1; }
     return 0;
+  }
+
+  /**
+   * Return the options for a given attribute
+   */
+  public getAttributeByValue(attribute: string) {
+    return this.metaData.filter(attrib => {
+      return attrib.value === attribute;
+    });
   }
 
   /**
@@ -225,7 +248,7 @@ export class UsersService {
   }
 
   /**
-   * AdminDeleteUser
+   * AdminDeleteUser as an Observable
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminDeleteUser-property
    */
   public adminDeleteUser(params?: any) {
@@ -233,7 +256,7 @@ export class UsersService {
   }
 
   /**
-   * ListUsersInGroup
+   * ListUsersInGroup as an Observable
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsersInGroup-property
    */
   public listUsersInGroup(params?: any) {
@@ -241,7 +264,7 @@ export class UsersService {
   }
 
   /**
-   * ListGroups
+   * ListGroups as an Observable
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listGroups-property
    */
   public listGroups(params?: any) {
@@ -249,37 +272,66 @@ export class UsersService {
   }
 
   /**
+   * AdminListGroupsForUser as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminListGroupsForUser-property
+   */
+  public adminListGroupsForUser(params?: any) {
+    return this.providerObservable('adminListGroupsForUser', params);
+  }
+
+  /**
+   * AdminAddUserToGroup as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminAddUserToGroup-property
+   */
+  public adminAddUserToGroup(params?: any) {
+    return this.providerObservable('adminAddUserToGroup', params);
+  }
+
+  /**
+   * AdminRemoveUserFromGroup as an Observable
+   * https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminRemoveUserFromGroup-property
+   */
+  public adminRemoveUserFromGroup(params?: any) {
+    return this.providerObservable('adminRemoveUserFromGroup', params);
+  }
+
+  /**
    * Update the metaData with the list of groups
    */
   public updateGroups() {
-    this.listGroups().subscribe(data => {
-      // if there are groups add them to the metaData
-      if (data.Groups.length) {
-        // remove previously added group_name attribute
-        this.metaData = this.metaData.filter(attrib => {
-          return attrib.value !== 'group_name';
-        });
-        // set group_name attribute
-        const groupName: any = {
-          value: 'group_name',
-          label: 'Group',
-          options: []
-        };
-        // set group_name attribute options
-        data.Groups.forEach((group: { GroupName: any, Description: any }) => {
-          groupName.options.push(
-            {
-              // add description to label if present
-              label: group.GroupName + (group.Description ? ' (' + group.Description + ')' : ''),
-              value: group.GroupName
-            }
-          );
-        });
-        this.metaData.push(groupName);
-        // sort the attributes by label
-        this.metaData.sort(this.attributeSort);
-      }
-    });
+    if (this.groupOptionsSubject.value === null) {
+      // get the group data
+      this.listGroups().subscribe(data => {
+        // if there are groups add them to the metaData
+        if (data.Groups.length) {
+          // remove previously added group_name attribute
+          this.metaData = this.metaData.filter(attrib => {
+            return attrib.value !== 'group_name';
+          });
+          // set group_name attribute
+          const groupName: any = {
+            value: 'group_name',
+            label: 'Group',
+            options: []
+          };
+          // set group_name attribute options
+          data.Groups.forEach((group: { GroupName: any, Description: any }) => {
+            groupName.options.push(
+              {
+                // add description to label if present
+                label: group.GroupName + (group.Description ? ' (' + group.Description + ')' : ''),
+                value: group.GroupName
+              }
+            );
+          });
+          this.metaData.push(groupName);
+          // sort the attributes by label
+          this.metaData.sort(this.attributeSort);
+          // notify subscribers of group options
+          this.groupOptionsSubject.next(groupName.options);
+        }
+      });
+    }
   }
 
 }

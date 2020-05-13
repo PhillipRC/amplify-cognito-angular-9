@@ -1,0 +1,30 @@
+@import "~@angular/material/theming";
+:host {
+  position: relative;
+}
+.user-groups-container {
+  @include mat-elevation(2);
+  position: relative;
+  width: 100%;
+  .full-width-table {
+    width: 100%;
+    #user_group_name {
+      width: 99%;
+    }
+    #user_group_action {
+      width: 1%;
+      md-icon {
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+  }
+  .group-input-container {
+    background-color: #fff;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 18px;
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
