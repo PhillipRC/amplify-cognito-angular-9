@@ -21,6 +21,12 @@ This application has been created to exercise, demonstraight, and test using the
 
   - Run `npm run start` for a dev server. Navigate to `http://localhost:8080/`. The app will automatically reload if you change any of the source files.
 
+- GitHub pages
+
+  - [amplify-cognito-angular-9](https://philliprc.github.io/amplify-cognito-angular-9)
+
+![App Screenshot](./amplify-cognito-angular-9.png)
+
 ## Amplify
 
 - [AWS Amplify JS](https://github.com/aws-amplify/amplify-js)
